@@ -15,13 +15,11 @@ const MESSAGE_LIMIT = 10;
  */
 export function addMessage(text: string): void {
   // Creating a new message and populating fields with our data
-  logging.log("Saving message");
+  //logging.log("Saving message");
   const message = new PostedMessage(text);
-  logging.log("Message Saved");
 
   // Adding the message to end of the the persistent collection
   messages.push(message);
-   logging.log("Message pushed");
 }
 
 /**
@@ -29,25 +27,31 @@ export function addMessage(text: string): void {
  * NOTE: This is a view method. Which means it should NOT modify the state.
  */ 
 export function getMessages(): PostedMessage[] {
-  logging.log("getMessages called");
+
+  //logging.log("getMessages called");
   const numMessages = min(MESSAGE_LIMIT, messages.length);
   const startIndex = messages.length - numMessages;
   const result = new Array<PostedMessage>(numMessages);
+
   for (let i = 0; i < numMessages; i++) {
     result[i] = messages[i + startIndex];
   }
+  
   return result;
 }
 
 export function welcome(account_id: string): TextMessage {
-  logging.log("simple welcome test");
+
   let message = new TextMessage();
   let greetingPrefix = storage.get<string>(account_id);
+
   if (!greetingPrefix) {
     greetingPrefix = DEFAULT_MESSAGE;
   }
+
   const s = printString(account_id);
   message.text = greetingPrefix + " " + s;
+
   return message;
 }
 

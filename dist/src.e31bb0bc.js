@@ -52021,7 +52021,7 @@ var App = /*#__PURE__*/function (_Component) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                appTitle = 'NEAR React template';
+                appTitle = 'Validator Tools';
                 _context6.next = 3;
                 return this.props.wallet.requestSignIn(window.nearConfig.contractName, appTitle);
 
@@ -52099,11 +52099,11 @@ var App = /*#__PURE__*/function (_Component) {
           var _event$target$element = event.target.elements,
               fieldset = _event$target$element.fieldset,
               message = _event$target$element.message,
-              donation = _event$target$element.donation;
-          console.log(message.value);
-          console.log(donation.value);
-          fieldset.disabled = true;
-          console.log("form disabled"); // TODO: optimistically update page with new message,
+              donation = _event$target$element.donation; //console.log(message.value)
+          //console.log(donation.value)
+
+          fieldset.disabled = true; //console.log("form disabled")
+          // TODO: optimistically update page with new message,
           // update blockchain data in background
           // add uuid to each message, so we know which one is already known
 
@@ -52119,9 +52119,8 @@ var App = /*#__PURE__*/function (_Component) {
               fieldset.disabled = false;
               message.focus();
             });
-          });
-          console.log(result);
-          console.log("after addMessage");
+          }); //console.log(result)
+          //console.log("after addMessage")
         };
 
         return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
@@ -52172,8 +52171,7 @@ var App = /*#__PURE__*/function (_Component) {
             setSearchTerm = _React$useState2[1];
 
         var handleChange = function handleChange(event) {
-          var search = event.target.elements.search;
-          setSearchTerm(search.value);
+          setSearchTerm(event.target.value);
         };
 
         var results = !searchTerm ? validators : validators.filter(function (person) {
@@ -52187,7 +52185,6 @@ var App = /*#__PURE__*/function (_Component) {
         return /*#__PURE__*/_react.default.createElement("div", {
           className: "App"
         }, /*#__PURE__*/_react.default.createElement("input", {
-          id: "search",
           type: "text",
           placeholder: "Search",
           value: searchTerm,
@@ -52449,7 +52446,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57002" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60903" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

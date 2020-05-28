@@ -5,6 +5,7 @@ import { context, u128, PersistentVector } from "near-sdk-as";
  */
 @nearBindgen
 export class PostedMessage {
+	
   premium: boolean;
   sender: string;
   constructor(public text: string) {

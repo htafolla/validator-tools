@@ -48,9 +48,9 @@ class App extends Component {
     .then((response) => response.json())
     .then((responseText) => {
 
-    //console.log(responseText);
-    //console.log(JSON.parse(JSON.stringify(responseText.result.values)));
-  })
+      //console.log(responseText);
+      //console.log(JSON.parse(JSON.stringify(responseText.result.values)));
+    })
     .catch((error) => {
       console.error(error);
     });
@@ -77,6 +77,7 @@ class App extends Component {
     this.setState({
       login: true,
     })
+
     const accountId = await this.props.wallet.getAccountId()
 
     this.setState({balance: (await this.props.wallet.account().state()).amount});
@@ -126,22 +127,25 @@ class App extends Component {
 
   async requestSignIn() {
 
-    const appTitle = 'NEAR React template';
+    const appTitle = 'Validator Tools';
+
     await this.props.wallet.requestSignIn(
       window.nearConfig.contractName,
       appTitle
-      )
+    )
   }
 
   requestSignOut() {
 
     this.props.wallet.signOut();
+
     setTimeout(this.signedOutFlow, 500);
   }
 
   async changeGreeting() {
 
     await this.props.contract.setGreeting({ message: 'howdy' });
+
     await this.welcome();
   }
 
@@ -150,10 +154,12 @@ class App extends Component {
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }
+
     this.setState({
       login: false,
       speech: null
     })
+
   }
 
   render() {
@@ -165,13 +171,15 @@ class App extends Component {
       const handleChange = event => {
 
         event.preventDefault()
+
         const { fieldset, message, donation } = event.target.elements;
-        console.log(message.value)
-        console.log(donation.value)
+
+        //console.log(message.value)
+        //console.log(donation.value)
 
         fieldset.disabled = true
 
-        console.log("form disabled")
+        //console.log("form disabled")
 
         // TODO: optimistically update page with new message,
         // update blockchain data in background
@@ -191,63 +199,56 @@ class App extends Component {
             })
           })
 
-          console.log(result)
-          console.log("after addMessage")
+          //console.log(result)
+          //console.log("after addMessage")
         };
 
         return (
 
           <div>
-          <form onSubmit={handleChange}>
-          <fieldset id="fieldset">
-          <p>Sign the guest book, { accountId }!</p>
-          <p className="highlight">
-          <label htmlFor="message">Message:</label>
-          <input
-          autoComplete="off"
-          autoFocus
-          id="message"
-          required
-          />
-          </p>
-          <p>
-          <label htmlFor="donation">Donation (optional):</label>
-          <input
-          autoComplete="off"
-          defaultValue={SUGGESTED_DONATION}
-          id="donation"
-          max={Big(self.state.balance).div(10 ** 24)}
-          min="0"
-          step="0.01"
-          type="number"
-          />
-          <span title="NEAR Tokens">Ⓝ</span>
-          </p>
-          <button type="submit">
-          Sign
-          </button>
-          </fieldset>
-          </form>
+            <form onSubmit={handleChange}>
+              <fieldset id="fieldset">
+                <p>Sign the guest book, { accountId }!</p>
+                <p className="highlight">
+                  <label htmlFor="message">Message:</label>
+                  <input
+                  autoComplete="off"
+                  autoFocus
+                  id="message"
+                  required
+                  />
+                </p>
+                <p>
+                  <label htmlFor="donation">Donation (optional):</label>
+                  <input
+                    autoComplete="off"
+                    defaultValue={SUGGESTED_DONATION}
+                    id="donation"
+                    max={Big(self.state.balance).div(10 ** 24)}
+                    min="0"
+                    step="0.01"
+                    type="number"
+                  />
+                  <span title="NEAR Tokens">Ⓝ</span>
+                </p>
+                <button type="submit">Sign</button>
+              </fieldset>
+            </form>
 
-          {!!self.state.messages && (
-            <>
-            <h2>Messages</h2>
-            {self.state.messages.map((message, i) =>
-              // TODO: format as cards, add timestamp
-              <p key={i} className={message.premium ? 'is-premium' : ''}>
-              <strong>{message.sender}</strong>:<br/>
-              {message.text}
-              </p>
-              )}
+            {!!self.state.messages && (
+              <>
+              <h2>Messages</h2>
+              {self.state.messages.map((message, i) =>
+                // TODO: format as cards, add timestamp
+                <p key={i} className={message.premium ? 'is-premium' : ''}>
+                  <strong>{message.sender}</strong>:<br/>
+                  {message.text}
+                </p>
+                )}
               </>
-              )}
-
-              </div>
-
-
-
-              );
-
+            )}
+          </div>
+        );
       }
 
       function Search() {
@@ -257,9 +258,7 @@ class App extends Component {
         const [searchTerm, setSearchTerm] = React.useState("");
 
         const handleChange = event => {
-
-          const { search } = event.target.elements;
-          setSearchTerm(search.value);
+          setSearchTerm(event.target.value);
         };
 
         const results = !searchTerm
@@ -277,88 +276,84 @@ class App extends Component {
           <div className="App">
 
             <input
-              id="search"
               type="text"
               placeholder="Search"
               value={searchTerm}
               onChange={handleChange} />
 
-          <table>
-          <thead>
-          <tr>
-          <th>Validator</th>
-          <th>Expected</th>
-          <th>Produced</th>
-          <th>Risk %</th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            results.map(((validator, index) =>
-              <tr key={index}>
-              <td key="{`${validator.account_id}${index}`}">{validator.account_id}</td>
-              <td key="{`${validator.num_expected_blocks}${index}`}">{JSON.stringify(validator.num_expected_blocks)}</td>
-              <td key="{`${validator.num_produced_blocks}${index}`}">{JSON.stringify(validator.num_produced_blocks)}</td>
-              <td key="{`${validator.num_expected_blocks}${validator.num_produced_blocks}${index}`}">{ Math.floor(validator.num_produced_blocks / validator.num_expected_blocks * 100) + "%" }</td>
-              </tr>
-              ))
-            }
-            </tbody>
+            <table>
+              <thead>
+                <tr>
+                  <th>Validator</th>
+                  <th>Expected</th>
+                  <th>Produced</th>
+                  <th>Risk %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {results.map(((validator, index) =>
+                  <tr key={index}>
+                      <td key="{`${validator.account_id}${index}`}">{validator.account_id}</td>
+                      <td key="{`${validator.num_expected_blocks}${index}`}">{JSON.stringify(validator.num_expected_blocks)}</td>
+                      <td key="{`${validator.num_produced_blocks}${index}`}">{JSON.stringify(validator.num_produced_blocks)}</td>
+                      <td key="{`${validator.num_expected_blocks}${validator.num_produced_blocks}${index}`}">{ Math.floor(validator.num_produced_blocks / validator.num_expected_blocks * 100) + "%" }</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
+          </div>
+        );
+      }
+
+      let style = {
+        fontSize: "1.5rem",
+        color: "#0072CE",
+        textShadow: "1px 1px #D1CCBD"
+      }
+
+      if (!this.state.validators) {
+        return "<p>Loading...</p>"
+      }
+
+      return (
+
+        <div>
+          <div className="App-header">
+            <div className="image-wrapper">
+              <img className="logo" src={nearlogo} alt="NEAR logo" />
+              <p style={style}>{this.state.speech}</p> 
             </div>
-            );
-          }
-
-          let style = {
-            fontSize: "1.5rem",
-            color: "#0072CE",
-            textShadow: "1px 1px #D1CCBD"
-          }
-
-          if (!this.state.validators) {
-            return "<p>Loading...</p>"
-          }
-
-          return (
 
             <div>
-              <div className="App-header">
-                <div className="image-wrapper">
-                  <img className="logo" src={nearlogo} alt="NEAR logo" />
-                  <p style={style}>{this.state.speech}</p> 
-                </div>
-
+              {this.state.login ? 
                 <div>
-                  {this.state.login ? 
-                    <div>
-                    <button onClick={this.requestSignOut}>Log out</button>
-                    <button onClick={this.changeGreeting}>Change greeting</button>
-                    </div>
-                    : <button onClick={this.requestSignIn}>Log in with NEAR</button>}
+                <button onClick={this.requestSignOut}>Log out</button>
+                <button onClick={this.changeGreeting}>Change greeting</button>
                 </div>
-              </div>
-
-              <div className="App-body">
-                <SignUp />
-                <Search />
-              </div>
-
+                : <button onClick={this.requestSignIn}>Log in with NEAR</button>}
             </div>
-          )
-        }
+          </div>
 
-      }
+          <div className="App-body">
+            <SignUp />
+            <Search />
+          </div>
 
-      App.propTypes = {
-        contract: PropTypes.shape({
-          addMessage: PropTypes.func.isRequired,
-          getMessages: PropTypes.func.isRequired
-        }).isRequired,
-        wallet: PropTypes.shape({
-          requestSignIn: PropTypes.func.isRequired,
-          signOut: PropTypes.func.isRequired
-        }).isRequired
-      }
+        </div>
+      )
+    }
+  }
+
+  App.propTypes = {
+    contract: PropTypes.shape({
+      addMessage: PropTypes.func.isRequired,
+      getMessages: PropTypes.func.isRequired
+    }).isRequired,
+    wallet: PropTypes.shape({
+      requestSignIn: PropTypes.func.isRequired,
+      signOut: PropTypes.func.isRequired
+    }).isRequired
+  }
 
 
-      export default App;
+  export default App;
