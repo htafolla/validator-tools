@@ -238,7 +238,7 @@ module.exports = ReactPropTypesSecret;
 
 var printWarning = function () {};
 
-if ("development" !== 'production') {
+if ("betanet" !== 'production') {
   var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
 
   var loggedTypeFailures = {};
@@ -273,7 +273,7 @@ if ("development" !== 'production') {
 
 
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  if ("development" !== 'production') {
+  if ("betanet" !== 'production') {
     for (var typeSpecName in typeSpecs) {
       if (has(typeSpecs, typeSpecName)) {
         var error; // Prop type validation may throw. In case they do, we don't want to
@@ -317,7 +317,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
 
 checkPropTypes.resetWarningCache = function () {
-  if ("development" !== 'production') {
+  if ("betanet" !== 'production') {
     loggedTypeFailures = {};
   }
 };
@@ -334,7 +334,7 @@ module.exports = checkPropTypes;
  */
 'use strict';
 
-if ("development" !== "production") {
+if ("betanet" !== "production") {
   (function () {
     'use strict';
 
@@ -345,25 +345,25 @@ if ("development" !== "production") {
     var ReactVersion = '16.13.1'; // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
     // nor polyfill, then a plain number is used for performance.
 
-    var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-    var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-    var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-    var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-    var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-    var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-    var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-    var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+    var hasSymbol = typeof Symbol === 'function' && Symbol["for"];
+    var REACT_ELEMENT_TYPE = hasSymbol ? Symbol["for"]('react.element') : 0xeac7;
+    var REACT_PORTAL_TYPE = hasSymbol ? Symbol["for"]('react.portal') : 0xeaca;
+    var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol["for"]('react.fragment') : 0xeacb;
+    var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol["for"]('react.strict_mode') : 0xeacc;
+    var REACT_PROFILER_TYPE = hasSymbol ? Symbol["for"]('react.profiler') : 0xead2;
+    var REACT_PROVIDER_TYPE = hasSymbol ? Symbol["for"]('react.provider') : 0xeacd;
+    var REACT_CONTEXT_TYPE = hasSymbol ? Symbol["for"]('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
 
-    var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-    var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-    var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-    var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-    var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-    var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-    var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-    var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-    var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-    var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
+    var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol["for"]('react.concurrent_mode') : 0xeacf;
+    var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol["for"]('react.forward_ref') : 0xead0;
+    var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol["for"]('react.suspense') : 0xead1;
+    var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol["for"]('react.suspense_list') : 0xead8;
+    var REACT_MEMO_TYPE = hasSymbol ? Symbol["for"]('react.memo') : 0xead3;
+    var REACT_LAZY_TYPE = hasSymbol ? Symbol["for"]('react.lazy') : 0xead4;
+    var REACT_BLOCK_TYPE = hasSymbol ? Symbol["for"]('react.block') : 0xead9;
+    var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol["for"]('react.fundamental') : 0xead5;
+    var REACT_RESPONDER_TYPE = hasSymbol ? Symbol["for"]('react.responder') : 0xead6;
+    var REACT_SCOPE_TYPE = hasSymbol ? Symbol["for"]('react.scope') : 0xead7;
     var MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
     var FAUX_ITERATOR_SYMBOL = '@@iterator';
 
@@ -2203,7 +2203,7 @@ if ("development" !== "production") {
 },{"object-assign":"../node_modules/object-assign/index.js","prop-types/checkPropTypes":"../node_modules/prop-types/checkPropTypes.js"}],"../node_modules/react/index.js":[function(require,module,exports) {
 'use strict';
 
-if ("development" === 'production') {
+if ("betanet" === 'production') {
   module.exports = require('./cjs/react.production.min.js');
 } else {
   module.exports = require('./cjs/react.development.js');
@@ -2219,7 +2219,7 @@ if ("development" === 'production') {
  */
 'use strict';
 
-if ("development" !== "production") {
+if ("betanet" !== "production") {
   (function () {
     'use strict';
 
@@ -3066,7 +3066,7 @@ if ("development" !== "production") {
 },{}],"../node_modules/scheduler/index.js":[function(require,module,exports) {
 'use strict';
 
-if ("development" === 'production') {
+if ("betanet" === 'production') {
   module.exports = require('./cjs/scheduler.production.min.js');
 } else {
   module.exports = require('./cjs/scheduler.development.js');
@@ -3082,7 +3082,7 @@ if ("development" === 'production') {
  */
 'use strict';
 
-if ("development" !== "production") {
+if ("betanet" !== "production") {
   (function () {
     'use strict';
 
@@ -3422,7 +3422,7 @@ if ("development" !== "production") {
 },{}],"../node_modules/scheduler/tracing.js":[function(require,module,exports) {
 'use strict';
 
-if ("development" === 'production') {
+if ("betanet" === 'production') {
   module.exports = require('./cjs/scheduler-tracing.production.min.js');
 } else {
   module.exports = require('./cjs/scheduler-tracing.development.js');
@@ -3438,7 +3438,7 @@ if ("development" === 'production') {
  */
 'use strict';
 
-if ("development" !== "production") {
+if ("betanet" !== "production") {
   (function () {
     'use strict';
 
@@ -28256,7 +28256,7 @@ function checkDCE() {
     return;
   }
 
-  if ("development" !== 'production') {
+  if ("betanet" !== 'production') {
     // This branch is unreachable because this function is only called
     // in production, but the condition is true only in development.
     // Therefore if the branch is still here, dead code elimination wasn't
@@ -28277,7 +28277,7 @@ function checkDCE() {
   }
 }
 
-if ("development" === 'production') {
+if ("betanet" === 'production') {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
@@ -29016,304 +29016,1817 @@ try {
   Function("r", "regeneratorRuntime = r")(runtime);
 }
 
+},{}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
+/** @license React v16.13.1
+ * react-is.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+'use strict';
+
+if ("betanet" !== "production") {
+  (function () {
+    'use strict'; // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+    // nor polyfill, then a plain number is used for performance.
+
+    var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+    var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+    var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+    var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+    var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+    var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+    var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+    var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+    // (unstable) APIs that have been removed. Can we remove the symbols?
+
+    var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
+    var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+    var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+    var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+    var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
+    var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+    var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+    var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
+    var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
+    var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
+    var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
+
+    function isValidElementType(type) {
+      return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+      type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+    }
+
+    function typeOf(object) {
+      if (typeof object === 'object' && object !== null) {
+        var $$typeof = object.$$typeof;
+
+        switch ($$typeof) {
+          case REACT_ELEMENT_TYPE:
+            var type = object.type;
+
+            switch (type) {
+              case REACT_ASYNC_MODE_TYPE:
+              case REACT_CONCURRENT_MODE_TYPE:
+              case REACT_FRAGMENT_TYPE:
+              case REACT_PROFILER_TYPE:
+              case REACT_STRICT_MODE_TYPE:
+              case REACT_SUSPENSE_TYPE:
+                return type;
+
+              default:
+                var $$typeofType = type && type.$$typeof;
+
+                switch ($$typeofType) {
+                  case REACT_CONTEXT_TYPE:
+                  case REACT_FORWARD_REF_TYPE:
+                  case REACT_LAZY_TYPE:
+                  case REACT_MEMO_TYPE:
+                  case REACT_PROVIDER_TYPE:
+                    return $$typeofType;
+
+                  default:
+                    return $$typeof;
+                }
+
+            }
+
+          case REACT_PORTAL_TYPE:
+            return $$typeof;
+        }
+      }
+
+      return undefined;
+    } // AsyncMode is deprecated along with isAsyncMode
+
+
+    var AsyncMode = REACT_ASYNC_MODE_TYPE;
+    var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+    var ContextConsumer = REACT_CONTEXT_TYPE;
+    var ContextProvider = REACT_PROVIDER_TYPE;
+    var Element = REACT_ELEMENT_TYPE;
+    var ForwardRef = REACT_FORWARD_REF_TYPE;
+    var Fragment = REACT_FRAGMENT_TYPE;
+    var Lazy = REACT_LAZY_TYPE;
+    var Memo = REACT_MEMO_TYPE;
+    var Portal = REACT_PORTAL_TYPE;
+    var Profiler = REACT_PROFILER_TYPE;
+    var StrictMode = REACT_STRICT_MODE_TYPE;
+    var Suspense = REACT_SUSPENSE_TYPE;
+    var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
+
+    function isAsyncMode(object) {
+      {
+        if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+          hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+          console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+        }
+      }
+      return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+    }
+
+    function isConcurrentMode(object) {
+      return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+    }
+
+    function isContextConsumer(object) {
+      return typeOf(object) === REACT_CONTEXT_TYPE;
+    }
+
+    function isContextProvider(object) {
+      return typeOf(object) === REACT_PROVIDER_TYPE;
+    }
+
+    function isElement(object) {
+      return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+    }
+
+    function isForwardRef(object) {
+      return typeOf(object) === REACT_FORWARD_REF_TYPE;
+    }
+
+    function isFragment(object) {
+      return typeOf(object) === REACT_FRAGMENT_TYPE;
+    }
+
+    function isLazy(object) {
+      return typeOf(object) === REACT_LAZY_TYPE;
+    }
+
+    function isMemo(object) {
+      return typeOf(object) === REACT_MEMO_TYPE;
+    }
+
+    function isPortal(object) {
+      return typeOf(object) === REACT_PORTAL_TYPE;
+    }
+
+    function isProfiler(object) {
+      return typeOf(object) === REACT_PROFILER_TYPE;
+    }
+
+    function isStrictMode(object) {
+      return typeOf(object) === REACT_STRICT_MODE_TYPE;
+    }
+
+    function isSuspense(object) {
+      return typeOf(object) === REACT_SUSPENSE_TYPE;
+    }
+
+    exports.AsyncMode = AsyncMode;
+    exports.ConcurrentMode = ConcurrentMode;
+    exports.ContextConsumer = ContextConsumer;
+    exports.ContextProvider = ContextProvider;
+    exports.Element = Element;
+    exports.ForwardRef = ForwardRef;
+    exports.Fragment = Fragment;
+    exports.Lazy = Lazy;
+    exports.Memo = Memo;
+    exports.Portal = Portal;
+    exports.Profiler = Profiler;
+    exports.StrictMode = StrictMode;
+    exports.Suspense = Suspense;
+    exports.isAsyncMode = isAsyncMode;
+    exports.isConcurrentMode = isConcurrentMode;
+    exports.isContextConsumer = isContextConsumer;
+    exports.isContextProvider = isContextProvider;
+    exports.isElement = isElement;
+    exports.isForwardRef = isForwardRef;
+    exports.isFragment = isFragment;
+    exports.isLazy = isLazy;
+    exports.isMemo = isMemo;
+    exports.isPortal = isPortal;
+    exports.isProfiler = isProfiler;
+    exports.isStrictMode = isStrictMode;
+    exports.isSuspense = isSuspense;
+    exports.isValidElementType = isValidElementType;
+    exports.typeOf = typeOf;
+  })();
+}
+},{}],"../node_modules/react-is/index.js":[function(require,module,exports) {
+'use strict';
+
+if ("betanet" === 'production') {
+  module.exports = require('./cjs/react-is.production.min.js');
+} else {
+  module.exports = require('./cjs/react-is.development.js');
+}
+},{"./cjs/react-is.development.js":"../node_modules/react-is/cjs/react-is.development.js"}],"../node_modules/prop-types/factoryWithTypeCheckers.js":[function(require,module,exports) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+'use strict';
+
+var ReactIs = require('react-is');
+
+var assign = require('object-assign');
+
+var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
+
+var checkPropTypes = require('./checkPropTypes');
+
+var has = Function.call.bind(Object.prototype.hasOwnProperty);
+
+var printWarning = function () {};
+
+if ("betanet" !== 'production') {
+  printWarning = function (text) {
+    var message = 'Warning: ' + text;
+
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+function emptyFunctionThatReturnsNull() {
+  return null;
+}
+
+module.exports = function (isValidElement, throwOnDirectAccess) {
+  /* global Symbol */
+  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+  /**
+   * Returns the iterator method function contained on the iterable object.
+   *
+   * Be sure to invoke the function with the iterable as context:
+   *
+   *     var iteratorFn = getIteratorFn(myIterable);
+   *     if (iteratorFn) {
+   *       var iterator = iteratorFn.call(myIterable);
+   *       ...
+   *     }
+   *
+   * @param {?object} maybeIterable
+   * @return {?function}
+   */
+
+  function getIteratorFn(maybeIterable) {
+    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+
+    if (typeof iteratorFn === 'function') {
+      return iteratorFn;
+    }
+  }
+  /**
+   * Collection of methods that allow declaration and validation of props that are
+   * supplied to React components. Example usage:
+   *
+   *   var Props = require('ReactPropTypes');
+   *   var MyArticle = React.createClass({
+   *     propTypes: {
+   *       // An optional string prop named "description".
+   *       description: Props.string,
+   *
+   *       // A required enum prop named "category".
+   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *
+   *       // A prop named "dialog" that requires an instance of Dialog.
+   *       dialog: Props.instanceOf(Dialog).isRequired
+   *     },
+   *     render: function() { ... }
+   *   });
+   *
+   * A more formal specification of how these methods are used:
+   *
+   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+   *   decl := ReactPropTypes.{type}(.isRequired)?
+   *
+   * Each and every declaration produces a function with the same signature. This
+   * allows the creation of custom validation functions. For example:
+   *
+   *  var MyLink = React.createClass({
+   *    propTypes: {
+   *      // An optional string or URI prop named "href".
+   *      href: function(props, propName, componentName) {
+   *        var propValue = props[propName];
+   *        if (propValue != null && typeof propValue !== 'string' &&
+   *            !(propValue instanceof URI)) {
+   *          return new Error(
+   *            'Expected a string or an URI for ' + propName + ' in ' +
+   *            componentName
+   *          );
+   *        }
+   *      }
+   *    },
+   *    render: function() {...}
+   *  });
+   *
+   * @internal
+   */
+
+
+  var ANONYMOUS = '<<anonymous>>'; // Important!
+  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+
+  var ReactPropTypes = {
+    array: createPrimitiveTypeChecker('array'),
+    bool: createPrimitiveTypeChecker('boolean'),
+    func: createPrimitiveTypeChecker('function'),
+    number: createPrimitiveTypeChecker('number'),
+    object: createPrimitiveTypeChecker('object'),
+    string: createPrimitiveTypeChecker('string'),
+    symbol: createPrimitiveTypeChecker('symbol'),
+    any: createAnyTypeChecker(),
+    arrayOf: createArrayOfTypeChecker,
+    element: createElementTypeChecker(),
+    elementType: createElementTypeTypeChecker(),
+    instanceOf: createInstanceTypeChecker,
+    node: createNodeChecker(),
+    objectOf: createObjectOfTypeChecker,
+    oneOf: createEnumTypeChecker,
+    oneOfType: createUnionTypeChecker,
+    shape: createShapeTypeChecker,
+    exact: createStrictShapeTypeChecker
+  };
+  /**
+   * inlined Object.is polyfill to avoid requiring consumers ship their own
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+   */
+
+  /*eslint-disable no-self-compare*/
+
+  function is(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y;
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y;
+    }
+  }
+  /*eslint-enable no-self-compare*/
+
+  /**
+   * We use an Error-like object for backward compatibility as people may call
+   * PropTypes directly and inspect their output. However, we don't use real
+   * Errors anymore. We don't inspect their stack anyway, and creating them
+   * is prohibitively expensive if they are created too often, such as what
+   * happens in oneOfType() for any type before the one that matched.
+   */
+
+
+  function PropTypeError(message) {
+    this.message = message;
+    this.stack = '';
+  } // Make `instanceof Error` still work for returned errors.
+
+
+  PropTypeError.prototype = Error.prototype;
+
+  function createChainableTypeChecker(validate) {
+    if ("betanet" !== 'production') {
+      var manualPropTypeCallCache = {};
+      var manualPropTypeWarningCount = 0;
+    }
+
+    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+      componentName = componentName || ANONYMOUS;
+      propFullName = propFullName || propName;
+
+      if (secret !== ReactPropTypesSecret) {
+        if (throwOnDirectAccess) {
+          // New behavior only for users of `prop-types` package
+          var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
+          err.name = 'Invariant Violation';
+          throw err;
+        } else if ("betanet" !== 'production' && typeof console !== 'undefined') {
+          // Old behavior for people using React.PropTypes
+          var cacheKey = componentName + ':' + propName;
+
+          if (!manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
+          manualPropTypeWarningCount < 3) {
+            printWarning('You are manually calling a React.PropTypes validation ' + 'function for the `' + propFullName + '` prop on `' + componentName + '`. This is deprecated ' + 'and will throw in the standalone `prop-types` package. ' + 'You may be seeing this warning due to a third-party PropTypes ' + 'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.');
+            manualPropTypeCallCache[cacheKey] = true;
+            manualPropTypeWarningCount++;
+          }
+        }
+      }
+
+      if (props[propName] == null) {
+        if (isRequired) {
+          if (props[propName] === null) {
+            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+          }
+
+          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+        }
+
+        return null;
+      } else {
+        return validate(props, propName, componentName, location, propFullName);
+      }
+    }
+
+    var chainedCheckType = checkType.bind(null, false);
+    chainedCheckType.isRequired = checkType.bind(null, true);
+    return chainedCheckType;
+  }
+
+  function createPrimitiveTypeChecker(expectedType) {
+    function validate(props, propName, componentName, location, propFullName, secret) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+
+      if (propType !== expectedType) {
+        // `propValue` being instance of, say, date/regexp, pass the 'object'
+        // check, but we can offer a more precise error message here rather than
+        // 'of type `object`'.
+        var preciseType = getPreciseType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createAnyTypeChecker() {
+    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
+  }
+
+  function createArrayOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+      }
+
+      var propValue = props[propName];
+
+      if (!Array.isArray(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+      }
+
+      for (var i = 0; i < propValue.length; i++) {
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+
+        if (error instanceof Error) {
+          return error;
+        }
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+
+      if (!isValidElement(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+
+      if (!ReactIs.isValidElementType(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createInstanceTypeChecker(expectedClass) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!(props[propName] instanceof expectedClass)) {
+        var expectedClassName = expectedClass.name || ANONYMOUS;
+        var actualClassName = getClassName(props[propName]);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createEnumTypeChecker(expectedValues) {
+    if (!Array.isArray(expectedValues)) {
+      if ("betanet" !== 'production') {
+        if (arguments.length > 1) {
+          printWarning('Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' + 'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).');
+        } else {
+          printWarning('Invalid argument supplied to oneOf, expected an array.');
+        }
+      }
+
+      return emptyFunctionThatReturnsNull;
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+
+      for (var i = 0; i < expectedValues.length; i++) {
+        if (is(propValue, expectedValues[i])) {
+          return null;
+        }
+      }
+
+      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
+        var type = getPreciseType(value);
+
+        if (type === 'symbol') {
+          return String(value);
+        }
+
+        return value;
+      });
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createObjectOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+      }
+
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+      }
+
+      for (var key in propValue) {
+        if (has(propValue, key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+
+          if (error instanceof Error) {
+            return error;
+          }
+        }
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createUnionTypeChecker(arrayOfTypeCheckers) {
+    if (!Array.isArray(arrayOfTypeCheckers)) {
+      "betanet" !== 'production' ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      return emptyFunctionThatReturnsNull;
+    }
+
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+
+      if (typeof checker !== 'function') {
+        printWarning('Invalid argument supplied to oneOfType. Expected an array of check functions, but ' + 'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.');
+        return emptyFunctionThatReturnsNull;
+      }
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+        var checker = arrayOfTypeCheckers[i];
+
+        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+          return null;
+        }
+      }
+
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createNodeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!isNode(props[propName])) {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+
+      for (var key in shapeTypes) {
+        var checker = shapeTypes[key];
+
+        if (!checker) {
+          continue;
+        }
+
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+
+        if (error) {
+          return error;
+        }
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function createStrictShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      } // We need to check all keys in case some are required but missing from
+      // props.
+
+
+      var allKeys = assign({}, props[propName], shapeTypes);
+
+      for (var key in allKeys) {
+        var checker = shapeTypes[key];
+
+        if (!checker) {
+          return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' + '\nBad object: ' + JSON.stringify(props[propName], null, '  ') + '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  '));
+        }
+
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+
+        if (error) {
+          return error;
+        }
+      }
+
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function isNode(propValue) {
+    switch (typeof propValue) {
+      case 'number':
+      case 'string':
+      case 'undefined':
+        return true;
+
+      case 'boolean':
+        return !propValue;
+
+      case 'object':
+        if (Array.isArray(propValue)) {
+          return propValue.every(isNode);
+        }
+
+        if (propValue === null || isValidElement(propValue)) {
+          return true;
+        }
+
+        var iteratorFn = getIteratorFn(propValue);
+
+        if (iteratorFn) {
+          var iterator = iteratorFn.call(propValue);
+          var step;
+
+          if (iteratorFn !== propValue.entries) {
+            while (!(step = iterator.next()).done) {
+              if (!isNode(step.value)) {
+                return false;
+              }
+            }
+          } else {
+            // Iterator will provide entry [k,v] tuples rather than values.
+            while (!(step = iterator.next()).done) {
+              var entry = step.value;
+
+              if (entry) {
+                if (!isNode(entry[1])) {
+                  return false;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
+
+        return true;
+
+      default:
+        return false;
+    }
+  }
+
+  function isSymbol(propType, propValue) {
+    // Native Symbol.
+    if (propType === 'symbol') {
+      return true;
+    } // falsy value can't be a Symbol
+
+
+    if (!propValue) {
+      return false;
+    } // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+
+
+    if (propValue['@@toStringTag'] === 'Symbol') {
+      return true;
+    } // Fallback for non-spec compliant Symbols which are polyfilled.
+
+
+    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+      return true;
+    }
+
+    return false;
+  } // Equivalent of `typeof` but with special handling for array and regexp.
+
+
+  function getPropType(propValue) {
+    var propType = typeof propValue;
+
+    if (Array.isArray(propValue)) {
+      return 'array';
+    }
+
+    if (propValue instanceof RegExp) {
+      // Old webkits (at least until Android 4.0) return 'function' rather than
+      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+      // passes PropTypes.object.
+      return 'object';
+    }
+
+    if (isSymbol(propType, propValue)) {
+      return 'symbol';
+    }
+
+    return propType;
+  } // This handles more types than `getPropType`. Only used for error messages.
+  // See `createPrimitiveTypeChecker`.
+
+
+  function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
+
+    var propType = getPropType(propValue);
+
+    if (propType === 'object') {
+      if (propValue instanceof Date) {
+        return 'date';
+      } else if (propValue instanceof RegExp) {
+        return 'regexp';
+      }
+    }
+
+    return propType;
+  } // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+
+
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+
+      default:
+        return type;
+    }
+  } // Returns class name of the object, if any.
+
+
+  function getClassName(propValue) {
+    if (!propValue.constructor || !propValue.constructor.name) {
+      return ANONYMOUS;
+    }
+
+    return propValue.constructor.name;
+  }
+
+  ReactPropTypes.checkPropTypes = checkPropTypes;
+  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+  return ReactPropTypes;
+};
+},{"react-is":"../node_modules/react-is/index.js","object-assign":"../node_modules/object-assign/index.js","./lib/ReactPropTypesSecret":"../node_modules/prop-types/lib/ReactPropTypesSecret.js","./checkPropTypes":"../node_modules/prop-types/checkPropTypes.js"}],"../node_modules/prop-types/index.js":[function(require,module,exports) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+if ("betanet" !== 'production') {
+  var ReactIs = require('react-is'); // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+
+
+  var throwOnDirectAccess = true;
+  module.exports = require('./factoryWithTypeCheckers')(ReactIs.isElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = require('./factoryWithThrowingShims')();
+}
+},{"react-is":"../node_modules/react-is/index.js","./factoryWithTypeCheckers":"../node_modules/prop-types/factoryWithTypeCheckers.js"}],"../node_modules/big.js/big.js":[function(require,module,exports) {
+var define;
+/*
+ *  big.js v5.2.2
+ *  A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
+ *  Copyright (c) 2018 Michael Mclaughlin <M8ch88l@gmail.com>
+ *  https://github.com/MikeMcl/big.js/LICENCE
+ */
+;(function (GLOBAL) {
+  'use strict';
+  var Big,
+
+
+/************************************** EDITABLE DEFAULTS *****************************************/
+
+
+    // The default values below must be integers within the stated ranges.
+
+    /*
+     * The maximum number of decimal places (DP) of the results of operations involving division:
+     * div and sqrt, and pow with negative exponents.
+     */
+    DP = 20,          // 0 to MAX_DP
+
+    /*
+     * The rounding mode (RM) used when rounding to the above decimal places.
+     *
+     *  0  Towards zero (i.e. truncate, no rounding).       (ROUND_DOWN)
+     *  1  To nearest neighbour. If equidistant, round up.  (ROUND_HALF_UP)
+     *  2  To nearest neighbour. If equidistant, to even.   (ROUND_HALF_EVEN)
+     *  3  Away from zero.                                  (ROUND_UP)
+     */
+    RM = 1,             // 0, 1, 2 or 3
+
+    // The maximum value of DP and Big.DP.
+    MAX_DP = 1E6,       // 0 to 1000000
+
+    // The maximum magnitude of the exponent argument to the pow method.
+    MAX_POWER = 1E6,    // 1 to 1000000
+
+    /*
+     * The negative exponent (NE) at and beneath which toString returns exponential notation.
+     * (JavaScript numbers: -7)
+     * -1000000 is the minimum recommended exponent value of a Big.
+     */
+    NE = -7,            // 0 to -1000000
+
+    /*
+     * The positive exponent (PE) at and above which toString returns exponential notation.
+     * (JavaScript numbers: 21)
+     * 1000000 is the maximum recommended exponent value of a Big.
+     * (This limit is not enforced or checked.)
+     */
+    PE = 21,            // 0 to 1000000
+
+
+/**************************************************************************************************/
+
+
+    // Error messages.
+    NAME = '[big.js] ',
+    INVALID = NAME + 'Invalid ',
+    INVALID_DP = INVALID + 'decimal places',
+    INVALID_RM = INVALID + 'rounding mode',
+    DIV_BY_ZERO = NAME + 'Division by zero',
+
+    // The shared prototype object.
+    P = {},
+    UNDEFINED = void 0,
+    NUMERIC = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
+
+
+  /*
+   * Create and return a Big constructor.
+   *
+   */
+  function _Big_() {
+
+    /*
+     * The Big constructor and exported function.
+     * Create and return a new instance of a Big number object.
+     *
+     * n {number|string|Big} A numeric value.
+     */
+    function Big(n) {
+      var x = this;
+
+      // Enable constructor usage without new.
+      if (!(x instanceof Big)) return n === UNDEFINED ? _Big_() : new Big(n);
+
+      // Duplicate.
+      if (n instanceof Big) {
+        x.s = n.s;
+        x.e = n.e;
+        x.c = n.c.slice();
+      } else {
+        parse(x, n);
+      }
+
+      /*
+       * Retain a reference to this Big constructor, and shadow Big.prototype.constructor which
+       * points to Object.
+       */
+      x.constructor = Big;
+    }
+
+    Big.prototype = P;
+    Big.DP = DP;
+    Big.RM = RM;
+    Big.NE = NE;
+    Big.PE = PE;
+    Big.version = '5.2.2';
+
+    return Big;
+  }
+
+
+  /*
+   * Parse the number or string value passed to a Big constructor.
+   *
+   * x {Big} A Big number instance.
+   * n {number|string} A numeric value.
+   */
+  function parse(x, n) {
+    var e, i, nl;
+
+    // Minus zero?
+    if (n === 0 && 1 / n < 0) n = '-0';
+    else if (!NUMERIC.test(n += '')) throw Error(INVALID + 'number');
+
+    // Determine sign.
+    x.s = n.charAt(0) == '-' ? (n = n.slice(1), -1) : 1;
+
+    // Decimal point?
+    if ((e = n.indexOf('.')) > -1) n = n.replace('.', '');
+
+    // Exponential form?
+    if ((i = n.search(/e/i)) > 0) {
+
+      // Determine exponent.
+      if (e < 0) e = i;
+      e += +n.slice(i + 1);
+      n = n.substring(0, i);
+    } else if (e < 0) {
+
+      // Integer.
+      e = n.length;
+    }
+
+    nl = n.length;
+
+    // Determine leading zeros.
+    for (i = 0; i < nl && n.charAt(i) == '0';) ++i;
+
+    if (i == nl) {
+
+      // Zero.
+      x.c = [x.e = 0];
+    } else {
+
+      // Determine trailing zeros.
+      for (; nl > 0 && n.charAt(--nl) == '0';);
+      x.e = e - i - 1;
+      x.c = [];
+
+      // Convert string to array of digits without leading/trailing zeros.
+      for (e = 0; i <= nl;) x.c[e++] = +n.charAt(i++);
+    }
+
+    return x;
+  }
+
+
+  /*
+   * Round Big x to a maximum of dp decimal places using rounding mode rm.
+   * Called by stringify, P.div, P.round and P.sqrt.
+   *
+   * x {Big} The Big to round.
+   * dp {number} Integer, 0 to MAX_DP inclusive.
+   * rm {number} 0, 1, 2 or 3 (DOWN, HALF_UP, HALF_EVEN, UP)
+   * [more] {boolean} Whether the result of division was truncated.
+   */
+  function round(x, dp, rm, more) {
+    var xc = x.c,
+      i = x.e + dp + 1;
+
+    if (i < xc.length) {
+      if (rm === 1) {
+
+        // xc[i] is the digit after the digit that may be rounded up.
+        more = xc[i] >= 5;
+      } else if (rm === 2) {
+        more = xc[i] > 5 || xc[i] == 5 &&
+          (more || i < 0 || xc[i + 1] !== UNDEFINED || xc[i - 1] & 1);
+      } else if (rm === 3) {
+        more = more || !!xc[0];
+      } else {
+        more = false;
+        if (rm !== 0) throw Error(INVALID_RM);
+      }
+
+      if (i < 1) {
+        xc.length = 1;
+
+        if (more) {
+
+          // 1, 0.1, 0.01, 0.001, 0.0001 etc.
+          x.e = -dp;
+          xc[0] = 1;
+        } else {
+
+          // Zero.
+          xc[0] = x.e = 0;
+        }
+      } else {
+
+        // Remove any digits after the required decimal places.
+        xc.length = i--;
+
+        // Round up?
+        if (more) {
+
+          // Rounding up may mean the previous digit has to be rounded up.
+          for (; ++xc[i] > 9;) {
+            xc[i] = 0;
+            if (!i--) {
+              ++x.e;
+              xc.unshift(1);
+            }
+          }
+        }
+
+        // Remove trailing zeros.
+        for (i = xc.length; !xc[--i];) xc.pop();
+      }
+    } else if (rm < 0 || rm > 3 || rm !== ~~rm) {
+      throw Error(INVALID_RM);
+    }
+
+    return x;
+  }
+
+
+  /*
+   * Return a string representing the value of Big x in normal or exponential notation.
+   * Handles P.toExponential, P.toFixed, P.toJSON, P.toPrecision, P.toString and P.valueOf.
+   *
+   * x {Big}
+   * id? {number} Caller id.
+   *         1 toExponential
+   *         2 toFixed
+   *         3 toPrecision
+   *         4 valueOf
+   * n? {number|undefined} Caller's argument.
+   * k? {number|undefined}
+   */
+  function stringify(x, id, n, k) {
+    var e, s,
+      Big = x.constructor,
+      z = !x.c[0];
+
+    if (n !== UNDEFINED) {
+      if (n !== ~~n || n < (id == 3) || n > MAX_DP) {
+        throw Error(id == 3 ? INVALID + 'precision' : INVALID_DP);
+      }
+
+      x = new Big(x);
+
+      // The index of the digit that may be rounded up.
+      n = k - x.e;
+
+      // Round?
+      if (x.c.length > ++k) round(x, n, Big.RM);
+
+      // toFixed: recalculate k as x.e may have changed if value rounded up.
+      if (id == 2) k = x.e + n + 1;
+
+      // Append zeros?
+      for (; x.c.length < k;) x.c.push(0);
+    }
+
+    e = x.e;
+    s = x.c.join('');
+    n = s.length;
+
+    // Exponential notation?
+    if (id != 2 && (id == 1 || id == 3 && k <= e || e <= Big.NE || e >= Big.PE)) {
+      s = s.charAt(0) + (n > 1 ? '.' + s.slice(1) : '') + (e < 0 ? 'e' : 'e+') + e;
+
+    // Normal notation.
+    } else if (e < 0) {
+      for (; ++e;) s = '0' + s;
+      s = '0.' + s;
+    } else if (e > 0) {
+      if (++e > n) for (e -= n; e--;) s += '0';
+      else if (e < n) s = s.slice(0, e) + '.' + s.slice(e);
+    } else if (n > 1) {
+      s = s.charAt(0) + '.' + s.slice(1);
+    }
+
+    return x.s < 0 && (!z || id == 4) ? '-' + s : s;
+  }
+
+
+  // Prototype/instance methods
+
+
+  /*
+   * Return a new Big whose value is the absolute value of this Big.
+   */
+  P.abs = function () {
+    var x = new this.constructor(this);
+    x.s = 1;
+    return x;
+  };
+
+
+  /*
+   * Return 1 if the value of this Big is greater than the value of Big y,
+   *       -1 if the value of this Big is less than the value of Big y, or
+   *        0 if they have the same value.
+  */
+  P.cmp = function (y) {
+    var isneg,
+      x = this,
+      xc = x.c,
+      yc = (y = new x.constructor(y)).c,
+      i = x.s,
+      j = y.s,
+      k = x.e,
+      l = y.e;
+
+    // Either zero?
+    if (!xc[0] || !yc[0]) return !xc[0] ? !yc[0] ? 0 : -j : i;
+
+    // Signs differ?
+    if (i != j) return i;
+
+    isneg = i < 0;
+
+    // Compare exponents.
+    if (k != l) return k > l ^ isneg ? 1 : -1;
+
+    j = (k = xc.length) < (l = yc.length) ? k : l;
+
+    // Compare digit by digit.
+    for (i = -1; ++i < j;) {
+      if (xc[i] != yc[i]) return xc[i] > yc[i] ^ isneg ? 1 : -1;
+    }
+
+    // Compare lengths.
+    return k == l ? 0 : k > l ^ isneg ? 1 : -1;
+  };
+
+
+  /*
+   * Return a new Big whose value is the value of this Big divided by the value of Big y, rounded,
+   * if necessary, to a maximum of Big.DP decimal places using rounding mode Big.RM.
+   */
+  P.div = function (y) {
+    var x = this,
+      Big = x.constructor,
+      a = x.c,                  // dividend
+      b = (y = new Big(y)).c,   // divisor
+      k = x.s == y.s ? 1 : -1,
+      dp = Big.DP;
+
+    if (dp !== ~~dp || dp < 0 || dp > MAX_DP) throw Error(INVALID_DP);
+
+    // Divisor is zero?
+    if (!b[0]) throw Error(DIV_BY_ZERO);
+
+    // Dividend is 0? Return +-0.
+    if (!a[0]) return new Big(k * 0);
+
+    var bl, bt, n, cmp, ri,
+      bz = b.slice(),
+      ai = bl = b.length,
+      al = a.length,
+      r = a.slice(0, bl),   // remainder
+      rl = r.length,
+      q = y,                // quotient
+      qc = q.c = [],
+      qi = 0,
+      d = dp + (q.e = x.e - y.e) + 1;    // number of digits of the result
+
+    q.s = k;
+    k = d < 0 ? 0 : d;
+
+    // Create version of divisor with leading zero.
+    bz.unshift(0);
+
+    // Add zeros to make remainder as long as divisor.
+    for (; rl++ < bl;) r.push(0);
+
+    do {
+
+      // n is how many times the divisor goes into current remainder.
+      for (n = 0; n < 10; n++) {
+
+        // Compare divisor and remainder.
+        if (bl != (rl = r.length)) {
+          cmp = bl > rl ? 1 : -1;
+        } else {
+          for (ri = -1, cmp = 0; ++ri < bl;) {
+            if (b[ri] != r[ri]) {
+              cmp = b[ri] > r[ri] ? 1 : -1;
+              break;
+            }
+          }
+        }
+
+        // If divisor < remainder, subtract divisor from remainder.
+        if (cmp < 0) {
+
+          // Remainder can't be more than 1 digit longer than divisor.
+          // Equalise lengths using divisor with extra leading zero?
+          for (bt = rl == bl ? b : bz; rl;) {
+            if (r[--rl] < bt[rl]) {
+              ri = rl;
+              for (; ri && !r[--ri];) r[ri] = 9;
+              --r[ri];
+              r[rl] += 10;
+            }
+            r[rl] -= bt[rl];
+          }
+
+          for (; !r[0];) r.shift();
+        } else {
+          break;
+        }
+      }
+
+      // Add the digit n to the result array.
+      qc[qi++] = cmp ? n : ++n;
+
+      // Update the remainder.
+      if (r[0] && cmp) r[rl] = a[ai] || 0;
+      else r = [a[ai]];
+
+    } while ((ai++ < al || r[0] !== UNDEFINED) && k--);
+
+    // Leading zero? Do not remove if result is simply zero (qi == 1).
+    if (!qc[0] && qi != 1) {
+
+      // There can't be more than one zero.
+      qc.shift();
+      q.e--;
+    }
+
+    // Round?
+    if (qi > d) round(q, dp, Big.RM, r[0] !== UNDEFINED);
+
+    return q;
+  };
+
+
+  /*
+   * Return true if the value of this Big is equal to the value of Big y, otherwise return false.
+   */
+  P.eq = function (y) {
+    return !this.cmp(y);
+  };
+
+
+  /*
+   * Return true if the value of this Big is greater than the value of Big y, otherwise return
+   * false.
+   */
+  P.gt = function (y) {
+    return this.cmp(y) > 0;
+  };
+
+
+  /*
+   * Return true if the value of this Big is greater than or equal to the value of Big y, otherwise
+   * return false.
+   */
+  P.gte = function (y) {
+    return this.cmp(y) > -1;
+  };
+
+
+  /*
+   * Return true if the value of this Big is less than the value of Big y, otherwise return false.
+   */
+  P.lt = function (y) {
+    return this.cmp(y) < 0;
+  };
+
+
+  /*
+   * Return true if the value of this Big is less than or equal to the value of Big y, otherwise
+   * return false.
+   */
+  P.lte = function (y) {
+    return this.cmp(y) < 1;
+  };
+
+
+  /*
+   * Return a new Big whose value is the value of this Big minus the value of Big y.
+   */
+  P.minus = P.sub = function (y) {
+    var i, j, t, xlty,
+      x = this,
+      Big = x.constructor,
+      a = x.s,
+      b = (y = new Big(y)).s;
+
+    // Signs differ?
+    if (a != b) {
+      y.s = -b;
+      return x.plus(y);
+    }
+
+    var xc = x.c.slice(),
+      xe = x.e,
+      yc = y.c,
+      ye = y.e;
+
+    // Either zero?
+    if (!xc[0] || !yc[0]) {
+
+      // y is non-zero? x is non-zero? Or both are zero.
+      return yc[0] ? (y.s = -b, y) : new Big(xc[0] ? x : 0);
+    }
+
+    // Determine which is the bigger number. Prepend zeros to equalise exponents.
+    if (a = xe - ye) {
+
+      if (xlty = a < 0) {
+        a = -a;
+        t = xc;
+      } else {
+        ye = xe;
+        t = yc;
+      }
+
+      t.reverse();
+      for (b = a; b--;) t.push(0);
+      t.reverse();
+    } else {
+
+      // Exponents equal. Check digit by digit.
+      j = ((xlty = xc.length < yc.length) ? xc : yc).length;
+
+      for (a = b = 0; b < j; b++) {
+        if (xc[b] != yc[b]) {
+          xlty = xc[b] < yc[b];
+          break;
+        }
+      }
+    }
+
+    // x < y? Point xc to the array of the bigger number.
+    if (xlty) {
+      t = xc;
+      xc = yc;
+      yc = t;
+      y.s = -y.s;
+    }
+
+    /*
+     * Append zeros to xc if shorter. No need to add zeros to yc if shorter as subtraction only
+     * needs to start at yc.length.
+     */
+    if ((b = (j = yc.length) - (i = xc.length)) > 0) for (; b--;) xc[i++] = 0;
+
+    // Subtract yc from xc.
+    for (b = i; j > a;) {
+      if (xc[--j] < yc[j]) {
+        for (i = j; i && !xc[--i];) xc[i] = 9;
+        --xc[i];
+        xc[j] += 10;
+      }
+
+      xc[j] -= yc[j];
+    }
+
+    // Remove trailing zeros.
+    for (; xc[--b] === 0;) xc.pop();
+
+    // Remove leading zeros and adjust exponent accordingly.
+    for (; xc[0] === 0;) {
+      xc.shift();
+      --ye;
+    }
+
+    if (!xc[0]) {
+
+      // n - n = +0
+      y.s = 1;
+
+      // Result must be zero.
+      xc = [ye = 0];
+    }
+
+    y.c = xc;
+    y.e = ye;
+
+    return y;
+  };
+
+
+  /*
+   * Return a new Big whose value is the value of this Big modulo the value of Big y.
+   */
+  P.mod = function (y) {
+    var ygtx,
+      x = this,
+      Big = x.constructor,
+      a = x.s,
+      b = (y = new Big(y)).s;
+
+    if (!y.c[0]) throw Error(DIV_BY_ZERO);
+
+    x.s = y.s = 1;
+    ygtx = y.cmp(x) == 1;
+    x.s = a;
+    y.s = b;
+
+    if (ygtx) return new Big(x);
+
+    a = Big.DP;
+    b = Big.RM;
+    Big.DP = Big.RM = 0;
+    x = x.div(y);
+    Big.DP = a;
+    Big.RM = b;
+
+    return this.minus(x.times(y));
+  };
+
+
+  /*
+   * Return a new Big whose value is the value of this Big plus the value of Big y.
+   */
+  P.plus = P.add = function (y) {
+    var t,
+      x = this,
+      Big = x.constructor,
+      a = x.s,
+      b = (y = new Big(y)).s;
+
+    // Signs differ?
+    if (a != b) {
+      y.s = -b;
+      return x.minus(y);
+    }
+
+    var xe = x.e,
+      xc = x.c,
+      ye = y.e,
+      yc = y.c;
+
+    // Either zero? y is non-zero? x is non-zero? Or both are zero.
+    if (!xc[0] || !yc[0]) return yc[0] ? y : new Big(xc[0] ? x : a * 0);
+
+    xc = xc.slice();
+
+    // Prepend zeros to equalise exponents.
+    // Note: reverse faster than unshifts.
+    if (a = xe - ye) {
+      if (a > 0) {
+        ye = xe;
+        t = yc;
+      } else {
+        a = -a;
+        t = xc;
+      }
+
+      t.reverse();
+      for (; a--;) t.push(0);
+      t.reverse();
+    }
+
+    // Point xc to the longer array.
+    if (xc.length - yc.length < 0) {
+      t = yc;
+      yc = xc;
+      xc = t;
+    }
+
+    a = yc.length;
+
+    // Only start adding at yc.length - 1 as the further digits of xc can be left as they are.
+    for (b = 0; a; xc[a] %= 10) b = (xc[--a] = xc[a] + yc[a] + b) / 10 | 0;
+
+    // No need to check for zero, as +x + +y != 0 && -x + -y != 0
+
+    if (b) {
+      xc.unshift(b);
+      ++ye;
+    }
+
+    // Remove trailing zeros.
+    for (a = xc.length; xc[--a] === 0;) xc.pop();
+
+    y.c = xc;
+    y.e = ye;
+
+    return y;
+  };
+
+
+  /*
+   * Return a Big whose value is the value of this Big raised to the power n.
+   * If n is negative, round to a maximum of Big.DP decimal places using rounding
+   * mode Big.RM.
+   *
+   * n {number} Integer, -MAX_POWER to MAX_POWER inclusive.
+   */
+  P.pow = function (n) {
+    var x = this,
+      one = new x.constructor(1),
+      y = one,
+      isneg = n < 0;
+
+    if (n !== ~~n || n < -MAX_POWER || n > MAX_POWER) throw Error(INVALID + 'exponent');
+    if (isneg) n = -n;
+
+    for (;;) {
+      if (n & 1) y = y.times(x);
+      n >>= 1;
+      if (!n) break;
+      x = x.times(x);
+    }
+
+    return isneg ? one.div(y) : y;
+  };
+
+
+  /*
+   * Return a new Big whose value is the value of this Big rounded using rounding mode rm
+   * to a maximum of dp decimal places, or, if dp is negative, to an integer which is a
+   * multiple of 10**-dp.
+   * If dp is not specified, round to 0 decimal places.
+   * If rm is not specified, use Big.RM.
+   *
+   * dp? {number} Integer, -MAX_DP to MAX_DP inclusive.
+   * rm? 0, 1, 2 or 3 (ROUND_DOWN, ROUND_HALF_UP, ROUND_HALF_EVEN, ROUND_UP)
+   */
+  P.round = function (dp, rm) {
+    var Big = this.constructor;
+    if (dp === UNDEFINED) dp = 0;
+    else if (dp !== ~~dp || dp < -MAX_DP || dp > MAX_DP) throw Error(INVALID_DP);
+    return round(new Big(this), dp, rm === UNDEFINED ? Big.RM : rm);
+  };
+
+
+  /*
+   * Return a new Big whose value is the square root of the value of this Big, rounded, if
+   * necessary, to a maximum of Big.DP decimal places using rounding mode Big.RM.
+   */
+  P.sqrt = function () {
+    var r, c, t,
+      x = this,
+      Big = x.constructor,
+      s = x.s,
+      e = x.e,
+      half = new Big(0.5);
+
+    // Zero?
+    if (!x.c[0]) return new Big(x);
+
+    // Negative?
+    if (s < 0) throw Error(NAME + 'No square root');
+
+    // Estimate.
+    s = Math.sqrt(x + '');
+
+    // Math.sqrt underflow/overflow?
+    // Re-estimate: pass x coefficient to Math.sqrt as integer, then adjust the result exponent.
+    if (s === 0 || s === 1 / 0) {
+      c = x.c.join('');
+      if (!(c.length + e & 1)) c += '0';
+      s = Math.sqrt(c);
+      e = ((e + 1) / 2 | 0) - (e < 0 || e & 1);
+      r = new Big((s == 1 / 0 ? '1e' : (s = s.toExponential()).slice(0, s.indexOf('e') + 1)) + e);
+    } else {
+      r = new Big(s);
+    }
+
+    e = r.e + (Big.DP += 4);
+
+    // Newton-Raphson iteration.
+    do {
+      t = r;
+      r = half.times(t.plus(x.div(t)));
+    } while (t.c.slice(0, e).join('') !== r.c.slice(0, e).join(''));
+
+    return round(r, Big.DP -= 4, Big.RM);
+  };
+
+
+  /*
+   * Return a new Big whose value is the value of this Big times the value of Big y.
+   */
+  P.times = P.mul = function (y) {
+    var c,
+      x = this,
+      Big = x.constructor,
+      xc = x.c,
+      yc = (y = new Big(y)).c,
+      a = xc.length,
+      b = yc.length,
+      i = x.e,
+      j = y.e;
+
+    // Determine sign of result.
+    y.s = x.s == y.s ? 1 : -1;
+
+    // Return signed 0 if either 0.
+    if (!xc[0] || !yc[0]) return new Big(y.s * 0);
+
+    // Initialise exponent of result as x.e + y.e.
+    y.e = i + j;
+
+    // If array xc has fewer digits than yc, swap xc and yc, and lengths.
+    if (a < b) {
+      c = xc;
+      xc = yc;
+      yc = c;
+      j = a;
+      a = b;
+      b = j;
+    }
+
+    // Initialise coefficient array of result with zeros.
+    for (c = new Array(j = a + b); j--;) c[j] = 0;
+
+    // Multiply.
+
+    // i is initially xc.length.
+    for (i = b; i--;) {
+      b = 0;
+
+      // a is yc.length.
+      for (j = a + i; j > i;) {
+
+        // Current sum of products at this digit position, plus carry.
+        b = c[j] + yc[i] * xc[j - i - 1] + b;
+        c[j--] = b % 10;
+
+        // carry
+        b = b / 10 | 0;
+      }
+
+      c[j] = (c[j] + b) % 10;
+    }
+
+    // Increment result exponent if there is a final carry, otherwise remove leading zero.
+    if (b) ++y.e;
+    else c.shift();
+
+    // Remove trailing zeros.
+    for (i = c.length; !c[--i];) c.pop();
+    y.c = c;
+
+    return y;
+  };
+
+
+  /*
+   * Return a string representing the value of this Big in exponential notation to dp fixed decimal
+   * places and rounded using Big.RM.
+   *
+   * dp? {number} Integer, 0 to MAX_DP inclusive.
+   */
+  P.toExponential = function (dp) {
+    return stringify(this, 1, dp, dp);
+  };
+
+
+  /*
+   * Return a string representing the value of this Big in normal notation to dp fixed decimal
+   * places and rounded using Big.RM.
+   *
+   * dp? {number} Integer, 0 to MAX_DP inclusive.
+   *
+   * (-0).toFixed(0) is '0', but (-0.1).toFixed(0) is '-0'.
+   * (-0).toFixed(1) is '0.0', but (-0.01).toFixed(1) is '-0.0'.
+   */
+  P.toFixed = function (dp) {
+    return stringify(this, 2, dp, this.e + dp);
+  };
+
+
+  /*
+   * Return a string representing the value of this Big rounded to sd significant digits using
+   * Big.RM. Use exponential notation if sd is less than the number of digits necessary to represent
+   * the integer part of the value in normal notation.
+   *
+   * sd {number} Integer, 1 to MAX_DP inclusive.
+   */
+  P.toPrecision = function (sd) {
+    return stringify(this, 3, sd, sd - 1);
+  };
+
+
+  /*
+   * Return a string representing the value of this Big.
+   * Return exponential notation if this Big has a positive exponent equal to or greater than
+   * Big.PE, or a negative exponent equal to or less than Big.NE.
+   * Omit the sign for negative zero.
+   */
+  P.toString = function () {
+    return stringify(this);
+  };
+
+
+  /*
+   * Return a string representing the value of this Big.
+   * Return exponential notation if this Big has a positive exponent equal to or greater than
+   * Big.PE, or a negative exponent equal to or less than Big.NE.
+   * Include the sign for negative zero.
+   */
+  P.valueOf = P.toJSON = function () {
+    return stringify(this, 4);
+  };
+
+
+  // Export
+
+
+  Big = _Big_();
+
+  Big['default'] = Big.Big = Big;
+
+  //AMD.
+  if (typeof define === 'function' && define.amd) {
+    define(function () { return Big; });
+
+  // Node and other CommonJS-like environments that support module.exports.
+  } else if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Big;
+
+  //Browser.
+  } else {
+    GLOBAL.Big = Big;
+  }
+})(this);
+
 },{}],"assets/logo.svg":[function(require,module,exports) {
 module.exports = "/logo.b37d81ec.svg";
 },{}],"assets/gray_near_logo.svg":[function(require,module,exports) {
 module.exports = "/gray_near_logo.f4fe4645.svg";
 },{}],"assets/near.svg":[function(require,module,exports) {
 module.exports = "/near.45fb95a6.svg";
-},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"App.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"App.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-require("regenerator-runtime/runtime");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _logo = _interopRequireDefault(require("./assets/logo.svg"));
-
-var _gray_near_logo = _interopRequireDefault(require("./assets/gray_near_logo.svg"));
-
-var _near = _interopRequireDefault(require("./assets/near.svg"));
-
-require("./App.css");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-class App extends _react.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: false,
-      speech: null,
-      nodeStatus: null
-    };
-    this.signedInFlow = this.signedInFlow.bind(this);
-    this.requestSignIn = this.requestSignIn.bind(this);
-    this.requestSignOut = this.requestSignOut.bind(this);
-    this.signedOutFlow = this.signedOutFlow.bind(this);
-    this.changeGreeting = this.changeGreeting.bind(this);
-  }
-
-  componentDidMount() {
-    let loggedIn = this.props.wallet.isSignedIn();
-
-    if (loggedIn) {
-      this.signedInFlow();
-    } else {
-      this.signedOutFlow();
-    }
-  }
-
-  async signedInFlow() {
-    console.log("come in sign in flow");
-    this.setState({
-      login: true
-    });
-    const accountId = await this.props.wallet.getAccountId();
-
-    if (window.location.search.includes("account_id")) {
-      window.location.replace(window.location.origin + window.location.pathname);
-    }
-
-    await this.welcome();
-  }
-
-  async welcome() {
-    const response = await this.props.contract.welcome({
-      account_id: accountId
-    });
-    this.setState({
-      speech: response.text
-    });
-    this.setState({
-      nodeStatus: window.nodeStatus.validators
-    });
-  }
-
-  async requestSignIn() {
-    const appTitle = 'NEAR React template';
-    await this.props.wallet.requestSignIn(window.nearConfig.contractName, appTitle);
-  }
-
-  requestSignOut() {
-    this.props.wallet.signOut();
-    setTimeout(this.signedOutFlow, 500);
-    console.log("after sign out", this.props.wallet.isSignedIn());
-  }
-
-  async changeGreeting() {
-    await this.props.contract.setGreeting({
-      message: 'howdy'
-    });
-    await this.welcome();
-  }
-
-  signedOutFlow() {
-    if (window.location.search.includes("account_id")) {
-      window.location.replace(window.location.origin + window.location.pathname);
-    }
-
-    this.setState({
-      login: false,
-      speech: null
-    });
-  }
-
-  render() {
-    let style = {
-      fontSize: "1.5rem",
-      color: "#0072CE",
-      textShadow: "1px 1px #D1CCBD"
-    };
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: "App-header"
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      className: "image-wrapper"
-    }, /*#__PURE__*/_react.default.createElement("img", {
-      className: "logo",
-      src: _gray_near_logo.default,
-      alt: "NEAR logo"
-    }), /*#__PURE__*/_react.default.createElement("p", {
-      style: style
-    }, this.state.speech), /*#__PURE__*/_react.default.createElement("p", null, JSON.stringify(this.state.nodeStatus))), /*#__PURE__*/_react.default.createElement("div", null, this.state.login ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
-      onClick: this.requestSignOut
-    }, "Log out"), /*#__PURE__*/_react.default.createElement("button", {
-      onClick: this.changeGreeting
-    }, "Change greeting")) : /*#__PURE__*/_react.default.createElement("button", {
-      onClick: this.requestSignIn
-    }, "Log in with NEAR")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
-      className: "logo-wrapper"
-    }, /*#__PURE__*/_react.default.createElement("img", {
-      src: _near.default,
-      className: "App-logo margin-logo",
-      alt: "logo"
-    }), /*#__PURE__*/_react.default.createElement("img", {
-      src: _logo.default,
-      className: "App-logo",
-      alt: "logo"
-    }))));
-  }
-
-}
-
-var _default = App;
-exports.default = _default;
-},{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","react":"../node_modules/react/index.js","./assets/logo.svg":"assets/logo.svg","./assets/gray_near_logo.svg":"assets/gray_near_logo.svg","./assets/near.svg":"assets/near.svg","./App.css":"App.css"}],"config.js":[function(require,module,exports) {
-const CONTRACT_NAME = "validator-tools" || 'validator-tools';
-
-function getConfig(env) {
-  switch (env) {
-    case 'production':
-    case 'mainnet':
-      return {
-        networkId: 'mainnet',
-        nodeUrl: 'https://rpc.mainnet.near.org',
-        contractName: CONTRACT_NAME,
-        walletUrl: 'https://wallet.mainnet.near.org',
-        helperUrl: 'https://helper.mainnet.near.org'
-      };
-
-    case 'development':
-    case 'testnet':
-      return {
-        networkId: 'default',
-        nodeUrl: 'https://rpc.testnet.near.org',
-        contractName: CONTRACT_NAME,
-        walletUrl: 'https://wallet.testnet.near.org',
-        helperUrl: 'https://helper.testnet.near.org'
-      };
-
-    case 'devnet':
-      return {
-        networkId: 'devnet',
-        nodeUrl: 'https://rpc.devnet.near.org',
-        contractName: CONTRACT_NAME,
-        walletUrl: 'https://wallet.devnet.near.org',
-        helperUrl: 'https://helper.devnet.near.org'
-      };
-
-    case 'betanet':
-      return {
-        networkId: 'betanet',
-        nodeUrl: 'https://rpc.betanet.near.org',
-        contractName: CONTRACT_NAME,
-        walletUrl: 'https://wallet.betanet.near.org',
-        helperUrl: 'https://helper.betanet.near.org'
-      };
-
-    case 'local':
-      return {
-        networkId: 'local',
-        nodeUrl: 'http://localhost:3030',
-        keyPath: `${"C:\\Users\\htafo"}/.near/validator_key.json`,
-        walletUrl: 'http://localhost:4000/wallet',
-        contractName: CONTRACT_NAME
-      };
-
-    case 'test':
-    case 'ci':
-      return {
-        networkId: 'shared-test',
-        nodeUrl: 'https://rpc.ci-testnet.near.org',
-        contractName: CONTRACT_NAME,
-        masterAccount: 'test.near'
-      };
-
-    case 'ci-betanet':
-      return {
-        networkId: 'shared-test-staging',
-        nodeUrl: 'https://rpc.ci-betanet.near.org',
-        contractName: CONTRACT_NAME,
-        masterAccount: 'test.near'
-      };
-
-    default:
-      throw Error(`Unconfigured environment '${env}'. Can be configured in src/config.js.`);
-  }
-}
-
-module.exports = getConfig;
 },{}],"../node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
@@ -31996,7 +33509,7 @@ var getGlobal = function () {
 var global = getGlobal();
 module.exports = exports = global.fetch; // Needed for TypeScript and Webpack.
 
-exports.default = global.fetch.bind(global);
+exports["default"] = global.fetch.bind(global);
 exports.Headers = global.Headers;
 exports.Request = global.Request;
 exports.Response = global.Response;
@@ -50084,7 +51597,739 @@ const wallet_account_1 = require("./wallet-account");
 exports.WalletAccount = wallet_account_1.WalletAccount;
 exports.WalletConnection = wallet_account_1.WalletConnection;
 
-},{"./providers":"../node_modules/near-api-js/lib/providers/index.js","./utils":"../node_modules/near-api-js/lib/utils/index.js","./key_stores/browser-index":"../node_modules/near-api-js/lib/key_stores/browser-index.js","./transaction":"../node_modules/near-api-js/lib/transaction.js","./account":"../node_modules/near-api-js/lib/account.js","./account_creator":"../node_modules/near-api-js/lib/account_creator.js","./connection":"../node_modules/near-api-js/lib/connection.js","./signer":"../node_modules/near-api-js/lib/signer.js","./contract":"../node_modules/near-api-js/lib/contract.js","./utils/key_pair":"../node_modules/near-api-js/lib/utils/key_pair.js","./near":"../node_modules/near-api-js/lib/near.js","./wallet-account":"../node_modules/near-api-js/lib/wallet-account.js"}],"index.js":[function(require,module,exports) {
+},{"./providers":"../node_modules/near-api-js/lib/providers/index.js","./utils":"../node_modules/near-api-js/lib/utils/index.js","./key_stores/browser-index":"../node_modules/near-api-js/lib/key_stores/browser-index.js","./transaction":"../node_modules/near-api-js/lib/transaction.js","./account":"../node_modules/near-api-js/lib/account.js","./account_creator":"../node_modules/near-api-js/lib/account_creator.js","./connection":"../node_modules/near-api-js/lib/connection.js","./signer":"../node_modules/near-api-js/lib/signer.js","./contract":"../node_modules/near-api-js/lib/contract.js","./utils/key_pair":"../node_modules/near-api-js/lib/utils/key_pair.js","./near":"../node_modules/near-api-js/lib/near.js","./wallet-account":"../node_modules/near-api-js/lib/wallet-account.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"App.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("regenerator-runtime/runtime");
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _big = _interopRequireDefault(require("big.js"));
+
+var _logo = _interopRequireDefault(require("./assets/logo.svg"));
+
+var _gray_near_logo = _interopRequireDefault(require("./assets/gray_near_logo.svg"));
+
+var _near = _interopRequireDefault(require("./assets/near.svg"));
+
+var nearlib = _interopRequireWildcard(require("near-api-js"));
+
+require("./App.css");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var SUGGESTED_DONATION = '0';
+var BOATLOAD_OF_GAS = (0, _big.default)(1).times(Math.pow(10, 12)).toFixed();
+
+var App = /*#__PURE__*/function (_Component) {
+  _inherits(App, _Component);
+
+  var _super = _createSuper(App);
+
+  function App(props) {
+    var _this;
+
+    _classCallCheck(this, App);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      login: false,
+      speech: null,
+      validators: null,
+      balance: null,
+      messages: null
+    };
+    _this.signedInFlow = _this.signedInFlow.bind(_assertThisInitialized(_this));
+    _this.requestSignIn = _this.requestSignIn.bind(_assertThisInitialized(_this));
+    _this.requestSignOut = _this.requestSignOut.bind(_assertThisInitialized(_this));
+    _this.signedOutFlow = _this.signedOutFlow.bind(_assertThisInitialized(_this));
+    _this.changeGreeting = _this.changeGreeting.bind(_assertThisInitialized(_this));
+    _this.getMessages = _this.getMessages.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      fetch("https://rpc.betanet.nearprotocol.com", {
+        method: 'POST',
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          id: '123',
+          method: 'query',
+          params: {
+            request_type: 'view_state',
+            finality: 'final',
+            account_id: 'blazenet',
+            prefix_base64: 'U1RBVEU='
+          }
+        }) // <-- Post parameters
+
+      }).then(function (response) {
+        return response.json();
+      }).then(function (responseText) {//console.log(responseText);
+        //console.log(JSON.parse(JSON.stringify(responseText.result.values)));
+      })["catch"](function (error) {
+        console.error(error);
+      });
+      setInterval(function () {
+        return _this2.loadData();
+      }, 180000);
+      var loggedIn = this.props.wallet.isSignedIn();
+
+      if (loggedIn) {
+        this.signedInFlow();
+      } else {
+        this.signedOutFlow();
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.interval);
+    }
+  }, {
+    key: "signedInFlow",
+    value: function () {
+      var _signedInFlow = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var accountId;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.setState({
+                  login: true
+                });
+                _context.next = 3;
+                return this.props.wallet.getAccountId();
+
+              case 3:
+                accountId = _context.sent;
+                _context.t0 = this;
+                _context.next = 7;
+                return this.props.wallet.account().state();
+
+              case 7:
+                _context.t1 = _context.sent.amount;
+                _context.t2 = {
+                  balance: _context.t1
+                };
+
+                _context.t0.setState.call(_context.t0, _context.t2);
+
+                //console.log(balance)
+                if (window.location.search.includes("account_id")) {
+                  window.location.replace(window.location.origin + window.location.pathname);
+                }
+
+                _context.next = 13;
+                return this.welcome();
+
+              case 13:
+                _context.next = 15;
+                return this.validators();
+
+              case 15:
+                _context.next = 17;
+                return this.getMessages();
+
+              case 17:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function signedInFlow() {
+        return _signedInFlow.apply(this, arguments);
+      }
+
+      return signedInFlow;
+    }()
+  }, {
+    key: "loadData",
+    value: function () {
+      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log("Loading data...");
+                _context2.next = 3;
+                return this.validators();
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function loadData() {
+        return _loadData.apply(this, arguments);
+      }
+
+      return loadData;
+    }()
+  }, {
+    key: "validators",
+    value: function () {
+      var _validators = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var nodeStatus, _validators2;
+
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return window.near.connection.provider.validators();
+
+              case 3:
+                nodeStatus = _context3.sent;
+                _validators2 = JSON.stringify(nodeStatus);
+                this.setState({
+                  validators: nodeStatus.current_validators
+                });
+                _context3.next = 11;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](0);
+                console.error(_context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[0, 8]]);
+      }));
+
+      function validators() {
+        return _validators.apply(this, arguments);
+      }
+
+      return validators;
+    }()
+  }, {
+    key: "getMessages",
+    value: function () {
+      var _getMessages = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.t0 = this;
+                _context4.next = 3;
+                return this.props.contract.getMessages();
+
+              case 3:
+                _context4.t1 = _context4.sent;
+                _context4.t2 = {
+                  messages: _context4.t1
+                };
+
+                _context4.t0.setState.call(_context4.t0, _context4.t2);
+
+                console.log(this.state.messages);
+
+              case 7:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function getMessages() {
+        return _getMessages.apply(this, arguments);
+      }
+
+      return getMessages;
+    }()
+  }, {
+    key: "welcome",
+    value: function () {
+      var _welcome = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+        var response;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return this.props.contract.welcome({
+                  account_id: accountId
+                });
+
+              case 2:
+                response = _context5.sent;
+                this.setState({
+                  speech: response.text
+                });
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function welcome() {
+        return _welcome.apply(this, arguments);
+      }
+
+      return welcome;
+    }()
+  }, {
+    key: "requestSignIn",
+    value: function () {
+      var _requestSignIn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+        var appTitle;
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                appTitle = 'NEAR React template';
+                _context6.next = 3;
+                return this.props.wallet.requestSignIn(window.nearConfig.contractName, appTitle);
+
+              case 3:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function requestSignIn() {
+        return _requestSignIn.apply(this, arguments);
+      }
+
+      return requestSignIn;
+    }()
+  }, {
+    key: "requestSignOut",
+    value: function requestSignOut() {
+      this.props.wallet.signOut();
+      setTimeout(this.signedOutFlow, 500);
+    }
+  }, {
+    key: "changeGreeting",
+    value: function () {
+      var _changeGreeting = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return this.props.contract.setGreeting({
+                  message: 'howdy'
+                });
+
+              case 2:
+                _context7.next = 4;
+                return this.welcome();
+
+              case 4:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function changeGreeting() {
+        return _changeGreeting.apply(this, arguments);
+      }
+
+      return changeGreeting;
+    }()
+  }, {
+    key: "signedOutFlow",
+    value: function signedOutFlow() {
+      if (window.location.search.includes("account_id")) {
+        window.location.replace(window.location.origin + window.location.pathname);
+      }
+
+      this.setState({
+        login: false,
+        speech: null
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var self = this;
+
+      function SignUp() {
+        var handleChange = function handleChange(event) {
+          event.preventDefault();
+          var _event$target$element = event.target.elements,
+              fieldset = _event$target$element.fieldset,
+              message = _event$target$element.message,
+              donation = _event$target$element.donation;
+          console.log(message.value);
+          console.log(donation.value);
+          fieldset.disabled = true;
+          console.log("form disabled"); // TODO: optimistically update page with new message,
+          // update blockchain data in background
+          // add uuid to each message, so we know which one is already known
+
+          var result = self.props.contract.addMessage({
+            text: message.value
+          }, BOATLOAD_OF_GAS).then(function () {
+            self.props.contract.getMessages().then(function (messages) {
+              self.setState({
+                messages: messages
+              });
+              message.value = '';
+              donation.value = SUGGESTED_DONATION;
+              fieldset.disabled = false;
+              message.focus();
+            });
+          });
+          console.log(result);
+          console.log("after addMessage");
+        };
+
+        return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+          onSubmit: handleChange
+        }, /*#__PURE__*/_react.default.createElement("fieldset", {
+          id: "fieldset"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Sign the guest book, ", accountId, "!"), /*#__PURE__*/_react.default.createElement("p", {
+          className: "highlight"
+        }, /*#__PURE__*/_react.default.createElement("label", {
+          htmlFor: "message"
+        }, "Message:"), /*#__PURE__*/_react.default.createElement("input", {
+          autoComplete: "off",
+          autoFocus: true,
+          id: "message",
+          required: true
+        })), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("label", {
+          htmlFor: "donation"
+        }, "Donation (optional):"), /*#__PURE__*/_react.default.createElement("input", {
+          autoComplete: "off",
+          defaultValue: SUGGESTED_DONATION,
+          id: "donation",
+          max: (0, _big.default)(self.state.balance).div(Math.pow(10, 24)),
+          min: "0",
+          step: "0.01",
+          type: "number"
+        }), /*#__PURE__*/_react.default.createElement("span", {
+          title: "NEAR Tokens"
+        }, "\u24C3")), /*#__PURE__*/_react.default.createElement("button", {
+          type: "submit"
+        }, "Sign"))), !!self.state.messages && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", null, "Messages"), self.state.messages.map(function (message, i) {
+          return (
+            /*#__PURE__*/
+            // TODO: format as cards, add timestamp
+            _react.default.createElement("p", {
+              key: i,
+              className: message.premium ? 'is-premium' : ''
+            }, /*#__PURE__*/_react.default.createElement("strong", null, message.sender), ":", /*#__PURE__*/_react.default.createElement("br", null), message.text)
+          );
+        })));
+      }
+
+      function Search() {
+        var validators = self.state.validators;
+
+        var _React$useState = _react.default.useState(""),
+            _React$useState2 = _slicedToArray(_React$useState, 2),
+            searchTerm = _React$useState2[0],
+            setSearchTerm = _React$useState2[1];
+
+        var handleChange = function handleChange(event) {
+          var search = event.target.elements.search;
+          setSearchTerm(search.value);
+        };
+
+        var results = !searchTerm ? validators : validators.filter(function (person) {
+          return person.account_id.toLowerCase().includes(searchTerm.toLocaleLowerCase());
+        });
+
+        if (!validators) {
+          return "<p>Loading...</p>";
+        }
+
+        return /*#__PURE__*/_react.default.createElement("div", {
+          className: "App"
+        }, /*#__PURE__*/_react.default.createElement("input", {
+          id: "search",
+          type: "text",
+          placeholder: "Search",
+          value: searchTerm,
+          onChange: handleChange
+        }), /*#__PURE__*/_react.default.createElement("table", null, /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null, "Validator"), /*#__PURE__*/_react.default.createElement("th", null, "Expected"), /*#__PURE__*/_react.default.createElement("th", null, "Produced"), /*#__PURE__*/_react.default.createElement("th", null, "Risk %"))), /*#__PURE__*/_react.default.createElement("tbody", null, results.map(function (validator, index) {
+          return /*#__PURE__*/_react.default.createElement("tr", {
+            key: index
+          }, /*#__PURE__*/_react.default.createElement("td", {
+            key: "{`${validator.account_id}${index}`}"
+          }, validator.account_id), /*#__PURE__*/_react.default.createElement("td", {
+            key: "{`${validator.num_expected_blocks}${index}`}"
+          }, JSON.stringify(validator.num_expected_blocks)), /*#__PURE__*/_react.default.createElement("td", {
+            key: "{`${validator.num_produced_blocks}${index}`}"
+          }, JSON.stringify(validator.num_produced_blocks)), /*#__PURE__*/_react.default.createElement("td", {
+            key: "{`${validator.num_expected_blocks}${validator.num_produced_blocks}${index}`}"
+          }, Math.floor(validator.num_produced_blocks / validator.num_expected_blocks * 100) + "%"));
+        }))));
+      }
+
+      var style = {
+        fontSize: "1.5rem",
+        color: "#0072CE",
+        textShadow: "1px 1px #D1CCBD"
+      };
+
+      if (!this.state.validators) {
+        return "<p>Loading...</p>";
+      }
+
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        className: "App-header"
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "image-wrapper"
+      }, /*#__PURE__*/_react.default.createElement("img", {
+        className: "logo",
+        src: _gray_near_logo.default,
+        alt: "NEAR logo"
+      }), /*#__PURE__*/_react.default.createElement("p", {
+        style: style
+      }, this.state.speech)), /*#__PURE__*/_react.default.createElement("div", null, this.state.login ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.requestSignOut
+      }, "Log out"), /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.changeGreeting
+      }, "Change greeting")) : /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.requestSignIn
+      }, "Log in with NEAR"))), /*#__PURE__*/_react.default.createElement("div", {
+        className: "App-body"
+      }, /*#__PURE__*/_react.default.createElement(SignUp, null), /*#__PURE__*/_react.default.createElement(Search, null)));
+    }
+  }]);
+
+  return App;
+}(_react.Component);
+
+App.propTypes = {
+  contract: _propTypes.default.shape({
+    addMessage: _propTypes.default.func.isRequired,
+    getMessages: _propTypes.default.func.isRequired
+  }).isRequired,
+  wallet: _propTypes.default.shape({
+    requestSignIn: _propTypes.default.func.isRequired,
+    signOut: _propTypes.default.func.isRequired
+  }).isRequired
+};
+var _default = App;
+exports.default = _default;
+},{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","big.js":"../node_modules/big.js/big.js","./assets/logo.svg":"assets/logo.svg","./assets/gray_near_logo.svg":"assets/gray_near_logo.svg","./assets/near.svg":"assets/near.svg","near-api-js":"../node_modules/near-api-js/lib/browser-index.js","./App.css":"App.css"}],"config.js":[function(require,module,exports) {
+var CONTRACT_NAME = "validator-tools" || 'validator-tools';
+
+function getConfig(env) {
+  switch (env) {
+    case 'production':
+    case 'mainnet':
+      return {
+        networkId: 'mainnet',
+        nodeUrl: 'https://rpc.mainnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.mainnet.near.org',
+        helperUrl: 'https://helper.mainnet.near.org'
+      };
+
+    case 'development':
+    case 'testnet':
+      return {
+        networkId: 'default',
+        nodeUrl: 'https://rpc.testnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org'
+      };
+
+    case 'devnet':
+      return {
+        networkId: 'devnet',
+        nodeUrl: 'https://rpc.devnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.devnet.near.org',
+        helperUrl: 'https://helper.devnet.near.org'
+      };
+
+    case 'betanet':
+      return {
+        networkId: 'betanet',
+        nodeUrl: 'https://rpc.betanet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.betanet.near.org',
+        helperUrl: 'https://helper.betanet.near.org'
+      };
+
+    case 'local':
+      return {
+        networkId: 'local',
+        nodeUrl: 'http://localhost:3030',
+        keyPath: "".concat("C:\\Users\\htafo", "/.near/validator_key.json"),
+        walletUrl: 'http://localhost:4000/wallet',
+        contractName: CONTRACT_NAME
+      };
+
+    case 'test':
+    case 'ci':
+      return {
+        networkId: 'shared-test',
+        nodeUrl: 'https://rpc.ci-testnet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near'
+      };
+
+    case 'ci-betanet':
+      return {
+        networkId: 'shared-test-staging',
+        nodeUrl: 'https://rpc.ci-betanet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near'
+      };
+
+    default:
+      throw Error("Unconfigured environment '".concat(env, "'. Can be configured in src/config.js."));
+  }
+}
+
+module.exports = getConfig;
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -50103,40 +52348,79 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 // Initializing contract
-async function initContract() {
-  window.nearConfig = (0, _config.default)("development" || 'development');
-  console.log("nearConfig", window.nearConfig); // Initializing connection to the NEAR DevNet.
-
-  window.near = await nearlib.connect(Object.assign({
-    deps: {
-      keyStore: new nearlib.keyStores.BrowserLocalStorageKeyStore()
-    }
-  }, window.nearConfig)); // Needed to access wallet login
-
-  window.walletAccount = new nearlib.WalletAccount(window.near);
-  window.nodeStatus = await near.connection.provider.status(); // Getting the Account ID. If unauthorized yet, it's just empty string.
-
-  window.accountId = window.walletAccount.getAccountId(); // Initializing our contract APIs by contract name and configuration.
-
-  let acct = await new nearlib.Account(window.near.connection, window.accountId);
-  window.contract = await new nearlib.Contract(acct, window.nearConfig.contractName, {
-    // View methods are read only. They don't modify the state, but usually return some value.
-    viewMethods: ['welcome'],
-    // Change methods can modify the state. But you don't receive the returned value when called.
-    changeMethods: ['setGreeting'],
-    // Sender is the account ID to initialize transactions.
-    sender: window.accountId
-  });
+function initContract() {
+  return _initContract.apply(this, arguments);
 }
 
-window.nearInitPromise = initContract().then(() => {
+function _initContract() {
+  _initContract = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var acct;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            window.nearConfig = (0, _config.default)("betanet" || 'development');
+            console.log("nearConfig", window.nearConfig); // Initializing connection to the NEAR DevNet.
+
+            _context.next = 4;
+            return nearlib.connect(Object.assign({
+              deps: {
+                keyStore: new nearlib.keyStores.BrowserLocalStorageKeyStore()
+              }
+            }, window.nearConfig));
+
+          case 4:
+            window.near = _context.sent;
+            // Needed to access wallet login
+            window.walletAccount = new nearlib.WalletAccount(window.near);
+            _context.next = 8;
+            return near.connection.provider.validators();
+
+          case 8:
+            window.nodeStatus = _context.sent;
+            // Getting the Account ID. If unauthorized yet, it's just empty string.
+            window.accountId = window.walletAccount.getAccountId(); // Initializing our contract APIs by contract name and configuration.
+
+            _context.next = 12;
+            return new nearlib.Account(window.near.connection, window.accountId);
+
+          case 12:
+            acct = _context.sent;
+            _context.next = 15;
+            return new nearlib.Contract(acct, window.nearConfig.contractName, {
+              // View methods are read only. They don't modify the state, but usually return some value.
+              viewMethods: ['welcome', 'getMessages'],
+              // Change methods can modify the state. But you don't receive the returned value when called.
+              changeMethods: ['setGreeting', 'addMessage'],
+              // Sender is the account ID to initialize transactions.
+              sender: window.accountId
+            });
+
+          case 15:
+            window.contract = _context.sent;
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _initContract.apply(this, arguments);
+}
+
+window.nearInitPromise = initContract().then(function () {
   _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_App.default, {
     contract: window.contract,
     wallet: window.walletAccount,
     nodeStatus: window.nodeStatus
   }), document.getElementById('root'));
-}).catch(console.error);
+})["catch"](console.error);
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./App":"App.js","./config.js":"config.js","near-api-js":"../node_modules/near-api-js/lib/browser-index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -50165,7 +52449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65095" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57002" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
