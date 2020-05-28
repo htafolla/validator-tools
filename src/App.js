@@ -1,15 +1,15 @@
 import 'regenerator-runtime/runtime';
 import React, { Component, useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import Big from 'big.js'
 import logo from './assets/logo.svg';
 import nearlogo from './assets/gray_near_logo.svg';
 import near from './assets/near.svg';
 import * as nearlib from 'near-api-js';
 import './App.css';
+import Signup from './Signup.js';
+import Search from './Search.js';
 
-const SUGGESTED_DONATION = '0'
-const BOATLOAD_OF_GAS = Big(1).times(10 ** 12).toFixed()
+
 
 class App extends Component {
 
@@ -166,145 +166,6 @@ class App extends Component {
 
     const self = this;
 
-    function SignUp() {
-
-      const handleChange = event => {
-
-        event.preventDefault()
-
-        const { fieldset, message, donation } = event.target.elements;
-
-        //console.log(message.value)
-        //console.log(donation.value)
-
-        fieldset.disabled = true
-
-        //console.log("form disabled")
-
-        // TODO: optimistically update page with new message,
-        // update blockchain data in background
-        // add uuid to each message, so we know which one is already known
-
-        const result = self.props.contract.addMessage({ text: message.value },
-          BOATLOAD_OF_GAS
-          ).then(() => {
-
-            self.props.contract.getMessages().then(messages => {
-              self.setState({messages: messages});
-
-              message.value = ''
-              donation.value = SUGGESTED_DONATION
-              fieldset.disabled = false
-              message.focus()
-            })
-          })
-
-          //console.log(result)
-          //console.log("after addMessage")
-        };
-
-        return (
-
-          <div>
-            <form onSubmit={handleChange}>
-              <fieldset id="fieldset">
-                <p>Sign the guest book, { accountId }!</p>
-                <p className="highlight">
-                  <label htmlFor="message">Message:</label>
-                  <input
-                  autoComplete="off"
-                  autoFocus
-                  id="message"
-                  required
-                  />
-                </p>
-                <p>
-                  <label htmlFor="donation">Donation (optional):</label>
-                  <input
-                    autoComplete="off"
-                    defaultValue={SUGGESTED_DONATION}
-                    id="donation"
-                    max={Big(self.state.balance).div(10 ** 24)}
-                    min="0"
-                    step="0.01"
-                    type="number"
-                  />
-                  <span title="NEAR Tokens">Ⓝ</span>
-                </p>
-                <button type="submit">Sign</button>
-              </fieldset>
-            </form>
-
-            {!!self.state.messages && (
-              <>
-              <h2>Messages</h2>
-              {self.state.messages.map((message, i) =>
-                // TODO: format as cards, add timestamp
-                <p key={i} className={message.premium ? 'is-premium' : ''}>
-                  <strong>{message.sender}</strong>:<br/>
-                  {message.text}
-                </p>
-                )}
-              </>
-            )}
-          </div>
-        );
-      }
-
-      function Search() {
-
-        const validators = self.state.validators;
-
-        const [searchTerm, setSearchTerm] = React.useState("");
-
-        const handleChange = event => {
-          setSearchTerm(event.target.value);
-        };
-
-        const results = !searchTerm
-        ? validators
-        : validators.filter(person =>
-          person.account_id.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-          );
-
-        if (!validators) {
-          return "<p>Loading...</p>"
-        }
-
-        return (
-
-          <div className="App">
-
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={handleChange} />
-
-            <table>
-              <thead>
-                <tr>
-                  <th>Validator</th>
-                  <th>Expected</th>
-                  <th>Produced</th>
-                  <th>Risk %</th>
-                </tr>
-              </thead>
-              <tbody>
-                {results.map(((validator, index) =>
-                  <tr key={index}>
-                      <td key="{`${validator.account_id}${index}`}">{validator.account_id}</td>
-                      <td key="{`${validator.num_expected_blocks}${index}`}">{JSON.stringify(validator.num_expected_blocks)}</td>
-                      <td key="{`${validator.num_produced_blocks}${index}`}">{JSON.stringify(validator.num_produced_blocks)}</td>
-                      <td key="{`${validator.num_expected_blocks}${validator.num_produced_blocks}${index}`}">{ Math.floor(validator.num_produced_blocks / validator.num_expected_blocks * 100) + "%" }</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        );
-      }
-
       let style = {
         fontSize: "1.5rem",
         color: "#0072CE",
@@ -335,8 +196,8 @@ class App extends Component {
           </div>
 
           <div className="App-body">
-            <SignUp />
-            <Search />
+            <Signup balance={self.state.balance} messages={self.state.messages} />
+            <Search validators={self.state.validators} />
           </div>
 
         </div>
@@ -354,6 +215,5 @@ class App extends Component {
       signOut: PropTypes.func.isRequired
     }).isRequired
   }
-
 
   export default App;
