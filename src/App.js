@@ -26,7 +26,8 @@ class App extends Component {
       login: false,
       speech: null,
       balance: null,
-      messages: null
+      messages: null,
+
     }
     this.signedInFlow = this.signedInFlow.bind(this);
     this.requestSignIn = this.requestSignIn.bind(this);
@@ -39,6 +40,7 @@ class App extends Component {
   componentDidMount() {
 
     let loggedIn = this.props.wallet.isSignedIn();
+
     
     if (loggedIn) {
       this.signedInFlow();
@@ -61,6 +63,9 @@ class App extends Component {
     const accountId = await this.props.wallet.getAccountId()
 
     this.setState({balance: (await this.props.wallet.account().state()).amount});
+
+
+
 
     //console.log(balance)
     if (window.location.search.includes("account_id")) {
@@ -175,7 +180,7 @@ class App extends Component {
               <Typography variant="h4" component="h1">
                 NEAR VALIDATORS
               </Typography>
-              <Search />
+              <Search wallet={self.props.wallet} />
             </Grid>
             <Grid item xs={6}>
                   <Signup wallet={self.props.wallet} contract={self.props.contract} balance={self.state.balance} />

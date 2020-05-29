@@ -63537,8 +63537,8 @@ var Signup = /*#__PURE__*/function (_Component) {
   _createClass(Signup, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var loggedIn = this.props.wallet.isSignedIn();
-      console.log(loggedIn);
+      var loggedIn = this.props.wallet.isSignedIn(); //console.log(loggedIn)
+
       fetch("https://rpc.betanet.nearprotocol.com", {
         method: 'POST',
         headers: new Headers({
@@ -63592,9 +63592,8 @@ var Signup = /*#__PURE__*/function (_Component) {
             message.focus();
           });
         });
-      };
+      }; //console.log(self.props.wallet.isSignedIn())
 
-      console.log(self.props.wallet.isSignedIn());
 
       if (!self.props.wallet.isSignedIn()) {
         return /*#__PURE__*/_react.default.createElement("p", null, "\xA0");
@@ -63649,6 +63648,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -63684,7 +63687,10 @@ var Search = /*#__PURE__*/function (_Component) {
       validators: '',
       searchTerm: '',
       isLoading: true,
-      error: null
+      error: null,
+      blockHeight: null,
+      epoch: null,
+      startHeight: null
     };
     _this.loadData = _this.loadData.bind(_assertThisInitialized(_this));
     return _this;
@@ -63707,44 +63713,79 @@ var Search = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "loadData",
-    value: function loadData() {
-      var _this3 = this;
+    value: function () {
+      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var _this3 = this;
 
-      this.setState({
-        isLoading: true
-      });
-      fetch("https://rpc.betanet.nearprotocol.com", {
-        method: 'POST',
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          id: 'none',
-          method: 'validators',
-          params: [null]
-        })
-      }).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Something went wrong ...');
-        }
-      }).then(function (responseText) {
-        var validators = responseText.result.current_validators;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.setState({
+                  isLoading: true
+                });
+                _context.t0 = this;
+                _context.next = 4;
+                return this.props.wallet.account().state();
 
-        _this3.setState({
-          validators: validators,
-          isLoading: false
-        });
-      })["catch"](function (error) {
-        return _this3.setState({
-          error: error,
-          isLoading: false
-        });
-      });
-    }
+              case 4:
+                _context.t1 = _context.sent.block_height;
+                _context.t2 = {
+                  blockHeight: _context.t1
+                };
+
+                _context.t0.setState.call(_context.t0, _context.t2);
+
+                fetch("https://rpc.betanet.nearprotocol.com", {
+                  method: 'POST',
+                  headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }),
+                  body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    id: 'none',
+                    method: 'validators',
+                    params: [null]
+                  })
+                }).then(function (response) {
+                  if (response.ok) {
+                    return response.json();
+                  } else {
+                    throw new Error('Something went wrong ...');
+                  }
+                }).then(function (responseText) {
+                  var validators = responseText.result.current_validators;
+
+                  _this3.setState({
+                    startHeight: responseText.result.epoch_start_height
+                  });
+
+                  _this3.setState({
+                    validators: validators,
+                    isLoading: false
+                  });
+                })["catch"](function (error) {
+                  return _this3.setState({
+                    error: error,
+                    isLoading: false
+                  });
+                });
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function loadData() {
+        return _loadData.apply(this, arguments);
+      }
+
+      return loadData;
+    }()
   }, {
     key: "render",
     value: function render() {
@@ -63754,8 +63795,12 @@ var Search = /*#__PURE__*/function (_Component) {
       var _this$state = this.state,
           validators = _this$state.validators,
           searchTerm = _this$state.searchTerm,
+          startHeight = _this$state.startHeight,
+          blockHeight = _this$state.blockHeight,
           isLoading = _this$state.isLoading,
           error = _this$state.error;
+      var epoch = Math.floor((blockHeight - startHeight) / 10000 * 100);
+      console.log(epoch);
 
       var handleChange = function handleChange(event) {
         _this4.setState({
@@ -63781,7 +63826,7 @@ var Search = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "App"
-      }, /*#__PURE__*/_react.default.createElement("input", {
+      }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("span", null, "CURRENT EPOCH", /*#__PURE__*/_react.default.createElement("br", null), epoch, "% COMPLETE")), /*#__PURE__*/_react.default.createElement("input", {
         type: "text",
         placeholder: "Search",
         value: this.state.searchTerm,
@@ -64178,7 +64223,9 @@ var App = /*#__PURE__*/function (_Component) {
         }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
           variant: "h4",
           component: "h1"
-        }, "NEAR VALIDATORS"), /*#__PURE__*/_react.default.createElement(_Search.default, null)), /*#__PURE__*/_react.default.createElement(_Grid.default, {
+        }, "NEAR VALIDATORS"), /*#__PURE__*/_react.default.createElement(_Search.default, {
+          wallet: self.props.wallet
+        })), /*#__PURE__*/_react.default.createElement(_Grid.default, {
           item: true,
           xs: 6
         }, /*#__PURE__*/_react.default.createElement(_Signup.default, {
@@ -64860,7 +64907,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60779" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61433" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

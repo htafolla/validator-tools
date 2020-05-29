@@ -11,7 +11,10 @@ class Search extends Component {
       validators: '',
       searchTerm: '',
       isLoading: true,
-      error: null
+      error: null,
+      blockHeight: null,
+      epoch: null,
+      startHeight: null
     }
 
     this.loadData = this.loadData.bind(this);
@@ -30,9 +33,11 @@ class Search extends Component {
     clearInterval(this.interval);
   }
 
-  loadData() {
+  async loadData() {
 
     this.setState({ isLoading: true });
+
+    this.setState({blockHeight: (await this.props.wallet.account().state()).block_height});
 
     fetch( "https://rpc.betanet.nearprotocol.com", {
       method: 'POST',
@@ -56,6 +61,7 @@ class Search extends Component {
     })
     .then((responseText) => {
       const validators = responseText.result.current_validators;
+      this.setState({startHeight: responseText.result.epoch_start_height});
       this.setState({validators: validators, isLoading: false});
     })
     .catch(error => this.setState({ error, isLoading: false }));
@@ -65,7 +71,11 @@ class Search extends Component {
 
     const self = this
 
-    const { validators, searchTerm, isLoading, error } = this.state;
+    const { validators, searchTerm, startHeight, blockHeight,  isLoading, error } = this.state;
+
+    let epoch = Math.floor((((blockHeight - startHeight) / 10000) * 100));
+
+    console.log(epoch)
 
     const handleChange = event => {
       this.setState({searchTerm: event.target.value});
@@ -92,13 +102,13 @@ class Search extends Component {
     return (
 
       <div className="App">
-
+              <div><span>CURRENT EPOCH<br/>{epoch}% COMPLETE</span></div>
         <input
           type="text"
           placeholder="Search"
           value={this.state.searchTerm}
           onChange={handleChange} />
-
+ 
         <table>
           <thead>
             <tr>
@@ -106,6 +116,7 @@ class Search extends Component {
               <th>Expected</th>
               <th>Produced</th>
               <th>%</th>
+
             </tr>
           </thead>
           <tbody>
@@ -119,6 +130,7 @@ class Search extends Component {
             ))}
           </tbody>
         </table>
+
       </div>
     );
   }

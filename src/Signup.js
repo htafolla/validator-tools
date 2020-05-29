@@ -14,7 +14,7 @@ class Signup extends Component {
 
     let loggedIn = this.props.wallet.isSignedIn();
 
-    console.log(loggedIn)
+    //console.log(loggedIn)
 
     fetch( "https://rpc.betanet.nearprotocol.com", {
       method: 'POST',
@@ -74,7 +74,7 @@ class Signup extends Component {
         })
       };
 
-      console.log(self.props.wallet.isSignedIn())
+      //console.log(self.props.wallet.isSignedIn())
 
       if(!self.props.wallet.isSignedIn()) {
         return <p>&nbsp;</p>
