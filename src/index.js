@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import getConfig from './config.js';
 import * as nearlib from 'near-api-js';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import App from './App';
+import theme from './theme';
 
 // Initializing contract
 async function initContract() {
@@ -34,7 +37,11 @@ async function initContract() {
 }
 
 window.nearInitPromise = initContract().then(() => {
-  ReactDOM.render(<App contract={window.contract} wallet={window.walletAccount} nodeStatus={window.nodeStatus} />,
+  ReactDOM.render(
+      <ThemeProvider theme={theme}> {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <App contract={window.contract} wallet={window.walletAccount} nodeStatus={window.nodeStatus} />
+      </ThemeProvider>,
     document.getElementById('root')
   );
 }).catch(console.error)

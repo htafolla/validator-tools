@@ -5,11 +5,18 @@ import logo from './assets/logo.svg';
 import nearlogo from './assets/gray_near_logo.svg';
 import near from './assets/near.svg';
 import * as nearlib from 'near-api-js';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+
 import './App.css';
 import Signup from './Signup.js';
 import Search from './Search.js';
-
-
 
 class App extends Component {
 
@@ -18,7 +25,6 @@ class App extends Component {
     this.state = {
       login: false,
       speech: null,
-      validators: null,
       balance: null,
       messages: null
     }
@@ -32,31 +38,6 @@ class App extends Component {
 
   componentDidMount() {
 
-    fetch( "https://rpc.betanet.nearprotocol.com", {
-      method: 'POST',
-      headers: new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        id: '123',
-        method: 'query',
-        params: {request_type: 'view_state', finality: 'final', account_id: 'blazenet', prefix_base64: 'U1RBVEU='}
-      }) // <-- Post parameters
-    })
-    .then((response) => response.json())
-    .then((responseText) => {
-
-      //console.log(responseText);
-      //console.log(JSON.parse(JSON.stringify(responseText.result.values)));
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
-    setInterval(() => this.loadData(), 180000);
-
     let loggedIn = this.props.wallet.isSignedIn();
     
     if (loggedIn) {
@@ -69,7 +50,6 @@ class App extends Component {
 
   componentWillUnmount() {
 
-    clearInterval(this.interval);
   }
 
   async signedInFlow() {
@@ -87,33 +67,13 @@ class App extends Component {
       window.location.replace(window.location.origin + window.location.pathname)
     }
     await this.welcome();
-    await this.validators();
     await this.getMessages();
 
-  }
-
-  async loadData() {
-
-    console.log("Loading data...")
-    await this.validators();
-  }
-
-  async validators() {
-
-    try {
-      const nodeStatus =  await window.near.connection.provider.validators();
-      const validators  = JSON.stringify(nodeStatus);
-      this.setState({validators: nodeStatus.current_validators});
-    } catch (ex) {
-      console.error(ex);
-    }
   }
 
   async getMessages() {
 
     this.setState({messages: await this.props.contract.getMessages()});
-
-    console.log(this.state.messages)
 
   }
 
@@ -166,41 +126,89 @@ class App extends Component {
 
     const self = this;
 
-      let style = {
-        fontSize: "1.5rem",
-        color: "#0072CE",
-        textShadow: "1px 1px #D1CCBD"
-      }
+    const useStyles = makeStyles((theme) => ({
+      root: {
+        flexGrow: 1,
+      },
+      validators: {
+        'min-height': 250,
+        textAlign: 'left',
+      },
+      paper: {
+        padding: theme.spacing(3),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+      },
+    }));
 
-      if (!this.state.validators) {
-        return "<p>Loading...</p>"
-      }
+    function CenteredGrid() {
+
+      const classes = useStyles();
 
       return (
+        <div className={classes.root}>
+          <Grid container spacing={0} alignItems="flex-start" alignContent="flex-start">
 
-        <div>
-          <div className="App-header">
-            <div className="image-wrapper">
-              <img className="logo" src={nearlogo} alt="NEAR logo" />
-              <p style={style}>{this.state.speech}</p> 
-            </div>
+            <Grid item xs={6}>
+                <Typography variant="h4" component="h1">
+                  BlazeNet - NEAR Validator Tools
+                 </Typography>
+            </Grid>
 
-            <div>
-              {this.state.login ? 
-                <div>
-                <button onClick={this.requestSignOut}>Log out</button>
-                <button onClick={this.changeGreeting}>Change greeting</button>
+            <Grid item xs={6}>
+              <Paper className={classes.paper}>
+                <div className="">
+                  <div>
+                  <img className="logo" src={nearlogo} alt="NEAR logo" />
+                    {self.state.login ? 
+                      <div>
+                      @{accountId}&nbsp;
+                      <button onClick={self.requestSignOut}>Log out</button>
+                      </div>
+                      : <button onClick={self.requestSignIn}>Log in with NEAR</button>}
+                  </div>
                 </div>
-                : <button onClick={this.requestSignIn}>Log in with NEAR</button>}
-            </div>
-          </div>
+              </Paper>
+            </Grid>
 
-          <div className="App-body">
-            <Signup balance={self.state.balance} messages={self.state.messages} />
-            <Search validators={self.state.validators} />
-          </div>
+            <Grid item className={classes.validators} xs={6}>
+              <Typography variant="h4" component="h1">
+                NEAR VALIDATORS
+              </Typography>
+              <Search />
+            </Grid>
+            <Grid item xs={6}>
+                  <Signup wallet={self.props.wallet} contract={self.props.contract} balance={self.state.balance} />
+            </Grid>
 
+            <Grid item  xs={12}>
+
+            </Grid>
+
+            <Grid item xs={3}>
+              <Paper className={classes.paper}>xs=3</Paper>
+            </Grid>
+            <Grid item xs={3}>
+              <Paper className={classes.paper}>xs=3</Paper>
+            </Grid>
+            <Grid item xs={3}>
+              <Paper className={classes.paper}>xs=3</Paper>
+            </Grid>
+            <Grid item xs={3}>
+              <Paper className={classes.paper}>xs=3</Paper>
+            </Grid>
+          </Grid>
         </div>
+      );
+    }
+
+    return (
+
+      <Container>
+        <Box my={4}>
+          <CenteredGrid />
+        </Box>
+      </Container>
       )
     }
   }

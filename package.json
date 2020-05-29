@@ -30,6 +30,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "dependencies": {
+    "@material-ui/core": "^4.10.0",
     "big.js": "^5.2.2",
     "near-api-js": "^0.24.0",
     "react": "^16.13.1",

@@ -10,7 +10,40 @@ class Signup extends Component {
     super(props);
   }
 
+  componentDidMount() {
+
+    let loggedIn = this.props.wallet.isSignedIn();
+
+    console.log(loggedIn)
+
+    fetch( "https://rpc.betanet.nearprotocol.com", {
+      method: 'POST',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: '123',
+        method: 'query',
+        params: {request_type: 'view_state', finality: 'final', account_id: 'blazenet', prefix_base64: 'U1RBVEU='}
+      }) // <-- Post parameters
+    })
+    .then((response) => response.json())
+    .then((responseText) => {
+
+      //console.log(responseText);
+      //console.log(JSON.parse(JSON.stringify(responseText.result.values)));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  }
+
   render() {
+
+      self = this;
 
       const handleChange = event => {
 
@@ -23,31 +56,41 @@ class Signup extends Component {
         // update blockchain data in background
         // add uuid to each message, so we know which one is already known
 
-        const result = self.props.contract.addMessage({ text: message.value },
+        const result = contract.addMessage({ text: message.value },
           BOATLOAD_OF_GAS
         )
         .then(() => {
 
-          self.props.contract.getMessages().then(messages => {
+          contract.getMessages().then(messages => {
 
             self.setState({messages: messages});
 
+            console.log(messages)
+
             message.value = ''
-            donation.value = SUGGESTED_DONATION
             fieldset.disabled = false
             message.focus()
           })
         })
       };
 
+      console.log(self.props.wallet.isSignedIn())
+
+      if(!self.props.wallet.isSignedIn()) {
+        return <p>&nbsp;</p>
+      }
+
       return (
+
+
 
         <div>
           <form onSubmit={handleChange}>
             <fieldset id="fieldset">
-              <p>Sign the guest book, { accountId }!</p>
-              <p className="highlight">
-                <label htmlFor="message">Message:</label>
+              <p>Howdy {accountId} signup</p>
+              <span>To be notified about your validator issues</span>
+              <p className="">
+                <label htmlFor="message">Email:</label>
                 <input
                 autoComplete="off"
                 autoFocus
@@ -55,30 +98,18 @@ class Signup extends Component {
                 required
                 />
               </p>
-              <p>
-                <label htmlFor="donation">Donation (optional):</label>
-                <input
-                  autoComplete="off"
-                  defaultValue={SUGGESTED_DONATION}
-                  id="donation"
-                  max={Big(this.props.balance).div(10 ** 24)}
-                  min="0"
-                  step="0.01"
-                  type="number"
-                />
-                <span title="NEAR Tokens">Ⓝ</span>
-              </p>
-              <button type="submit">Sign</button>
+              <button type="submit">Sign Up</button>
             </fieldset>
           </form>
 
-          {!!this.props.messages && (
+
+              {!!self.props.messages && (
             <>
             <h2>Messages</h2>
-            {this.props.messages.map((message, i) =>
+            {self.props.messages.map((message, i) =>
               // TODO: format as cards, add timestamp
               <p key={i} className={message.premium ? 'is-premium' : ''}>
-                <strong>{message.sender}</strong>:<br/>
+                <strong>{message.sender}</strong>: <br/>
                 {message.text}
               </p>
               )}

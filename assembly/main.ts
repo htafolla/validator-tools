@@ -23,6 +23,15 @@ export function addMessage(text: string): void {
 }
 
 /**
+* Remove a validator from the system
+**/
+export function removeValidator(index: u32): PostedMessage {
+  const validator = messages.swap_remove(index);
+
+  return validator;
+}
+
+/**
  * Returns an array of last N messages.\
  * NOTE: This is a view method. Which means it should NOT modify the state.
  */ 
@@ -36,7 +45,7 @@ export function getMessages(): PostedMessage[] {
   for (let i = 0; i < numMessages; i++) {
     result[i] = messages[i + startIndex];
   }
-  
+
   return result;
 }
 
