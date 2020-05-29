@@ -15,9 +15,11 @@ package-lock.json
 /coverage
 
 # production
+/dist
 /build
 
 # misc
+.cache
 .DS_Store
 .env.local
 .env.development.local

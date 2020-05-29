@@ -2,7 +2,7 @@ import React, { Component, useCallback, useEffect, useState } from 'react'
 
 class Search extends Component {
 
-
+  intervalID;
 
   constructor(props) {
     super(props);
@@ -21,11 +21,9 @@ class Search extends Component {
   }
 
   componentDidMount() {
-
     
     this.loadData();
-    setInterval(() => this.loadData(), 10000);
-    //this.loadData();
+    this.intervalID = setInterval(() => this.loadData().bind(this), 10000);
   }
 
   componentWillUnmount() {
@@ -102,7 +100,7 @@ class Search extends Component {
     return (
 
       <div className="App">
-              <div><span>CURRENT EPOCH<br/>{epoch}% COMPLETE</span></div>
+        <div><span>CURRENT EPOCH<br/>{epoch}% COMPLETE</span></div>
         <input
           type="text"
           placeholder="Search"
