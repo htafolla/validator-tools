@@ -1,5 +1,9 @@
 import React, { Component, useCallback, useEffect, useState } from 'react'
 import Big from 'big.js'
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 const SUGGESTED_DONATION = '0'
 const BOATLOAD_OF_GAS = Big(1).times(10 ** 12).toFixed()
@@ -85,20 +89,16 @@ class Signup extends Component {
 
 
         <div>
-          <form onSubmit={handleChange}>
+          <form className="" onSubmit={handleChange} noValidate autoComplete="off">
             <fieldset id="fieldset">
-              <p>Howdy {accountId} signup</p>
-              <span>To be notified about your validator issues</span>
+               <Typography variant="h5" component="h5">
+                Sign Up
+               </Typography>
+              <span>Be notified about validator issues</span>
               <p className="">
-                <label htmlFor="message">Email:</label>
-                <input
-                autoComplete="off"
-                autoFocus
-                id="message"
-                required
-                />
+                <TextField required id="message" label="Required" defaultValue="Email" autoComplete="off" />
               </p>
-              <button type="submit">Sign Up</button>
+              <Button variant="contained" color="primary">Sign Up</Button>
             </fieldset>
           </form>
 

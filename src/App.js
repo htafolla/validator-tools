@@ -2,21 +2,25 @@ import 'regenerator-runtime/runtime';
 import React, { Component, useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import logo from './assets/logo.svg';
-import nearlogo from './assets/gray_near_logo.svg';
+import blazenetlogo from './assets/blazenet-io-icon.png';
+import nearlogo from './assets/near_logo_wht.svg';
 import near from './assets/near.svg';
 import * as nearlib from 'near-api-js';
+
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 
+
+
 import './App.css';
 import Signup from './Signup.js';
 import Search from './Search.js';
+import MenuAppBar from './AppBar.js';
 
 class App extends Component {
 
@@ -24,9 +28,10 @@ class App extends Component {
     super(props);
     this.state = {
       login: false,
-      speech: null,
       balance: null,
       messages: null,
+      balance: null,
+      anchorEl: false
 
     }
     this.signedInFlow = this.signedInFlow.bind(this);
@@ -35,6 +40,8 @@ class App extends Component {
     this.signedOutFlow = this.signedOutFlow.bind(this);
     this.changeGreeting = this.changeGreeting.bind(this);
     this.getMessages = this.getMessages.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -64,9 +71,6 @@ class App extends Component {
 
     this.setState({balance: (await this.props.wallet.account().state()).amount});
 
-
-
-
     //console.log(balance)
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
@@ -86,13 +90,11 @@ class App extends Component {
 
     const response = await this.props.contract.welcome({ account_id: accountId });
 
-    this.setState({speech: response.text});
-
   }
 
   async requestSignIn() {
 
-    const appTitle = 'Validator Tools';
+    const appTitle = 'BlazeNet Validator Tools';
 
     await this.props.wallet.requestSignIn(
       window.nearConfig.contractName,
@@ -122,18 +124,35 @@ class App extends Component {
 
     this.setState({
       login: false,
-      speech: null
     })
 
   }
 
+  async handleMenu() {
+    this.setState({'anchorEl': event.currentTarget});
+  }
+
+  async handleClose() {
+    this.setState({'anchorEl': null});
+  }
+
   render() {
 
-    const self = this;
+    self = this;
 
     const useStyles = makeStyles((theme) => ({
       root: {
         flexGrow: 1,
+      },
+      nearlogo: {
+        'width': '25%',
+        'vertical-align': 'middle',
+      },
+      logo: {
+        'flex-grow': 1,
+        'font-family': "'Catamaran', sans-serif",
+        'font-weight': 600,
+        'font-size': 45,
       },
       validators: {
         'min-height': 250,
@@ -144,6 +163,31 @@ class App extends Component {
         textAlign: 'center',
         color: theme.palette.text.secondary,
       },
+      gridItemRight: {
+        'text-align': 'right',
+      },
+      gridItemCenter: {
+        'text-align': 'center',
+      },
+      menuButton: {
+        marginRight: theme.spacing(2),
+      },
+      title: {
+        flexGrow: 1,
+      },
+      headerText: {
+        'font-size': '1.2rem',
+        'vertical-align': 'middle'
+      },
+      alignRight: {
+        'text-align': 'right',
+      },
+      alignLeft: {
+        'text-align': 'left',
+      },
+      table: {
+        minWidth: 650,
+      },
     }));
 
     function CenteredGrid() {
@@ -152,37 +196,22 @@ class App extends Component {
 
       return (
         <div className={classes.root}>
-          <Grid container spacing={0} alignItems="flex-start" alignContent="flex-start">
+          <Grid container spacing={5} alignItems="flex-start" alignContent="flex-start">
 
-            <Grid item xs={6}>
-                <Typography variant="h4" component="h1">
-                  BlazeNet - NEAR Validator Tools
-                 </Typography>
+            <Grid item xs={12}>
+              <MenuAppBar wallet={self.props.wallet} />
             </Grid>
 
-            <Grid item xs={6}>
-              <Paper className={classes.paper}>
-                <div className="">
-                  <div>
-                  <img className="logo" src={nearlogo} alt="NEAR logo" />
-                    {self.state.login ? 
-                      <div>
-                      @{accountId}&nbsp;
-                      <button onClick={self.requestSignOut}>Log out</button>
-                      </div>
-                      : <button onClick={self.requestSignIn}>Log in with NEAR</button>}
-                  </div>
-                </div>
-              </Paper>
+            <Grid item xs={12} className={classes.gridItemCenter}>
+              <Typography variant="h4" component="h4">
+                VALIDATOR TOOLS
+               </Typography>
             </Grid>
 
-            <Grid item className={classes.validators} xs={6}>
-              <Typography variant="h4" component="h1">
-                NEAR VALIDATORS
-              </Typography>
-              <Search wallet={self.props.wallet} />
+            <Grid item className={classes.validators} xs={8}>
+              <Search wallet={self.props.wallet} classes={classes} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
                   <Signup wallet={self.props.wallet} contract={self.props.contract} balance={self.state.balance} />
             </Grid>
 
@@ -208,7 +237,6 @@ class App extends Component {
     }
 
     return (
-
       <Container>
         <Box my={4}>
           <CenteredGrid />
