@@ -86,35 +86,17 @@ class Signup extends Component {
 
       return (
 
-
-
         <div>
-          <form className="" onSubmit={handleChange} noValidate autoComplete="off">
+          <form onSubmit={handleChange} noValidate autoComplete="off">
             <fieldset id="fieldset">
                <Typography variant="h5" component="h5">
                 Sign Up
                </Typography>
               <span>Be notified about validator issues</span>
-              <p className="">
-                <TextField required id="message" label="Required" defaultValue="Email" autoComplete="off" />
-              </p>
+              <TextField required id="message" label="Required" defaultValue="Email" autoComplete="off" />
               <Button variant="contained" color="primary">Sign Up</Button>
             </fieldset>
           </form>
-
-
-              {!!self.props.messages && (
-            <>
-            <h2>Messages</h2>
-            {self.props.messages.map((message, i) =>
-              // TODO: format as cards, add timestamp
-              <p key={i} className={message.premium ? 'is-premium' : ''}>
-                <strong>{message.sender}</strong>: <br/>
-                {message.text}
-              </p>
-              )}
-            </>
-          )}
         </div>
       );
     

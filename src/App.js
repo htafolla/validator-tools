@@ -40,8 +40,6 @@ class App extends Component {
     this.signedOutFlow = this.signedOutFlow.bind(this);
     this.changeGreeting = this.changeGreeting.bind(this);
     this.getMessages = this.getMessages.bind(this);
-    this.handleMenu = this.handleMenu.bind(this);
-    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -71,7 +69,6 @@ class App extends Component {
 
     this.setState({balance: (await this.props.wallet.account().state()).amount});
 
-    //console.log(balance)
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }
@@ -126,14 +123,6 @@ class App extends Component {
       login: false,
     })
 
-  }
-
-  async handleMenu() {
-    this.setState({'anchorEl': event.currentTarget});
-  }
-
-  async handleClose() {
-    this.setState({'anchorEl': null});
   }
 
   render() {
@@ -204,7 +193,7 @@ class App extends Component {
 
             <Grid item xs={12} className={classes.gridItemCenter}>
               <Typography variant="h4" component="h4">
-                VALIDATOR TOOLS
+                NEAR VALIDATOR STATS & TOOLS
                </Typography>
             </Grid>
 

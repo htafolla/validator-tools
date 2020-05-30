@@ -31,19 +31,20 @@ class Search extends Component {
       startHeight: null
     }
 
-    this.loadData = this.loadData.bind(this);
+    //this.loadData = this.loadData.bind(this);
 
   }
 
   componentDidMount() {
-    
+
     this.loadData();
-    this.intervalID = setInterval(() => this.loadData(), 10000);
+
+    //this.intervalID = setInterval(() => this.loadData(), 10000);
   }
 
   componentWillUnmount() {
 
-    clearInterval(this.interval);
+    clearInterval(this.intervalID);
   }
 
   async loadData() {
@@ -72,10 +73,16 @@ class Search extends Component {
         throw new Error('Something went wrong ...');
       }
     })
-    .then((responseText) => {
-      const validators = responseText.result.current_validators;
-      this.setState({startHeight: responseText.result.epoch_start_height});
+    .then((data) => {
+
+      const validators = data.result.current_validators;
+
+      this.setState({startHeight: data.result.epoch_start_height});
+
       this.setState({validators: validators, isLoading: false});
+
+      this.intervalID = setTimeout(this.loadData.bind(this), 1000000);
+
     })
     .catch(error => this.setState({ error, isLoading: false }));
   }
@@ -88,26 +95,10 @@ class Search extends Component {
 
     let epoch = Math.floor((((blockHeight - startHeight) / 10000) * 100));
 
-    console.log(epoch)
+    const handleChange = () => {
 
-    function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-    const handleChange = event => {
       this.setState({searchTerm: event.target.value});
-      // console.log(event.target.value)
-      // this.setState(() => ({
-      //   searchTerm: event.target.value
-      // }));
+      
     };
 
     const results = !this.state.searchTerm
@@ -115,6 +106,8 @@ const rows = [
     : validators.filter(validator =>
       validator.account_id.toLowerCase().includes(this.state.searchTerm.toLocaleLowerCase())
       );
+
+    //console.log(results)
 
     if (error) {
       return <p>{error.message}</p>;
@@ -148,32 +141,28 @@ const rows = [
           variant="outlined"
         />
 
-    <TableContainer component={Paper}>
-      <Table className={self.props.classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Validator</TableCell>
-            <TableCell align="right">Blocks Expected</TableCell>
-            <TableCell align="right">Blocks Produced</TableCell>
-            <TableCell align="right">%</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-         {results.map((validator, index) => (
-            <TableRow key={validator.index}>
-              <TableCell component="th" scope="row">
-                {validator.account_id}
-              </TableCell>
-              <TableCell align="right">{JSON.stringify(validator.num_expected_blocks)}</TableCell>
-              <TableCell align="right">{JSON.stringify(validator.num_produced_blocks)}</TableCell>
-              <TableCell align="right">{ Math.floor(validator.num_produced_blocks / validator.num_expected_blocks * 100) + "%" }</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-
-      
+        <TableContainer component={Paper}>
+          <Table className={self.props.classes.table} aria-label="simple table">
+            <TableHead key="th">
+              <TableRow key="tr">
+                <TableCell key="v">Validator</TableCell>
+                <TableCell key="b" align="right">Blocks Expected</TableCell>
+                <TableCell key="p" align="right">Blocks Produced</TableCell>
+                <TableCell key="pc" align="right">%</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody key="vb">
+             {results.map((validator, index) => (
+                <TableRow key={index}>
+                  <TableCell key="{`${validator.account_id}${index}`}" >{validator.account_id}</TableCell>
+                  <TableCell key="{`${validator.num_expected_blocks}${index}`}" align="right">{JSON.stringify(validator.num_expected_blocks)}</TableCell>
+                  <TableCell key="{`${validator.num_produced_blocks}${index}`}" align="right">{JSON.stringify(validator.num_produced_blocks)}</TableCell>
+                  <TableCell key="{`${validator.num_expected_blocks}${validator.num_produced_blocks}${index}`}" align="right">{(validator.num_produced_blocks / validator.num_expected_blocks * 100).toFixed(2) + "%" }</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
       </div>
     );
