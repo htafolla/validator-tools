@@ -7,12 +7,17 @@ import nearlogo from './assets/near_logo_wht.svg';
 import near from './assets/near.svg';
 import * as nearlib from 'near-api-js';
 
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+
 
 
 
@@ -24,29 +29,38 @@ import MenuAppBar from './AppBar.js';
 
 class App extends Component {
 
+  intervalID;
+
   constructor(props) {
     super(props);
+
     this.state = {
+
       login: false,
       balance: null,
       messages: null,
       balance: null,
-      anchorEl: false
+      error: null,
+      blockHeight: null,
+      epoch: null,
+      startHeight: null,
+      isLoading: true,
+      refreshValidators: false
 
     }
+
     this.signedInFlow = this.signedInFlow.bind(this);
     this.requestSignIn = this.requestSignIn.bind(this);
     this.requestSignOut = this.requestSignOut.bind(this);
     this.signedOutFlow = this.signedOutFlow.bind(this);
-    this.changeGreeting = this.changeGreeting.bind(this);
     this.getMessages = this.getMessages.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   componentDidMount() {
 
     let loggedIn = this.props.wallet.isSignedIn();
 
-    
     if (loggedIn) {
       this.signedInFlow();
 
@@ -56,6 +70,8 @@ class App extends Component {
   }
 
   componentWillUnmount() {
+
+    clearInterval(this.intervalID);
 
   }
 
@@ -72,9 +88,57 @@ class App extends Component {
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }
-    await this.welcome();
-    await this.getMessages();
 
+    
+    //await this.welcome();
+    await this.getMessages();
+     this.loadData();
+
+
+  }
+
+  async loadData() {
+
+    console.log("Loading Data...")
+
+    this.setState({ isLoading: true });
+
+    this.setState({blockHeight: (await (this.props.wallet.account().state())).block_height});
+
+    //console.log( (await this.props.wallet.account().state()).block_height)
+
+    fetch( "https://rpc.betanet.nearprotocol.com", {
+      method: 'POST',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 'none',
+        method: 'validators',
+        params: [null]
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong ...');
+      }
+    })
+    .then((data) => {
+
+      this.setState({startHeight: data.result.epoch_start_height});
+
+      console.log(data.result.epoch_start_height)
+
+      this.setState({validators: data.result, refreshValidators: true, isLoading: false});
+
+      this.intervalID = setTimeout(this.loadData.bind(this), 100000);
+
+    })
+    .catch(error => this.setState({ error, refreshValidators: false, isLoading: false }));
   }
 
   async getMessages() {
@@ -83,11 +147,11 @@ class App extends Component {
 
   }
 
-  async welcome() {
+  // async welcome() {
 
-    const response = await this.props.contract.welcome({ account_id: accountId });
+  //   const response = await this.props.contract.welcome({ account_id: accountId });
 
-  }
+  // }
 
   async requestSignIn() {
 
@@ -106,13 +170,6 @@ class App extends Component {
     setTimeout(this.signedOutFlow, 500);
   }
 
-  async changeGreeting() {
-
-    await this.props.contract.setGreeting({ message: 'howdy' });
-
-    await this.welcome();
-  }
-
   signedOutFlow() {
 
     if (window.location.search.includes("account_id")) {
@@ -129,7 +186,19 @@ class App extends Component {
 
     self = this;
 
+     const { validators, searchTerm, startHeight, blockHeight,  refreshValidators, error } = this.state;
+
+     console.log(blockHeight)
+     console.log(startHeight)
+
+    let numBlocksProduced = (blockHeight - startHeight);
+    let percentageComplete = numBlocksProduced / 10000000;
+
+    let epoch = (Math.floor(percentageComplete * 100));
+
+
     const useStyles = makeStyles((theme) => ({
+
       root: {
         flexGrow: 1,
       },
@@ -196,9 +265,55 @@ class App extends Component {
                 NEAR VALIDATOR STATS & TOOLS
                </Typography>
             </Grid>
+            <Grid item className={classes.validators} xs={3}>
+              <Card className={classes.root}>
+                <CardContent>
+                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    % COMPLETE
+                  </Typography>
+                  <Typography variant="h5" component="h2">
+                    {epoch}%
+                  </Typography>
+                  <Typography color="textSecondary">
+                    EPOCH
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item className={classes.validators} xs={3}>
+              <Card className={classes.root}>
+                <CardContent>
+                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    START BLOCK
+                  </Typography>
+                  <Typography variant="h5" component="h2">
+                    {startHeight}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    EPOCH
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item className={classes.validators} xs={3}>
+              <Card className={classes.root}>
+                <CardContent>
+                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    VALID BLOCKS
+                  </Typography>
+                  <Typography variant="h5" component="h2">
+                    {blockHeight}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    EPOCH
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item className={classes.validators} xs={3}>&nbsp;</Grid>
 
             <Grid item className={classes.validators} xs={8}>
-              <Search wallet={self.props.wallet} classes={classes} />
+              <Search wallet={self.props.wallet} validators={self.state.validators} classes={classes} isLoading={self.state.isLoading} />
             </Grid>
             <Grid item xs={4}>
                   <Signup wallet={self.props.wallet} contract={self.props.contract} balance={self.state.balance} />
@@ -233,6 +348,10 @@ class App extends Component {
       </Container>
       )
     }
+  }
+
+  if (self.error) {
+    return <p>{self.error.message}</p>;
   }
 
   App.propTypes = {
