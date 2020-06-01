@@ -9,9 +9,16 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Tooltip } from '@material-ui/core';
 
 import WarningIcon from '@material-ui/icons/Warning';
-import { Tooltip } from '@material-ui/core';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import ErrorIcon from '@material-ui/icons/Error';
+
+
+import { green } from '@material-ui/core/colors';
+import { yellow } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 
 
 class Search extends Component {
@@ -153,7 +160,14 @@ class Search extends Component {
                   <TableCell key="{`${validator.num_expected_blocks}${index}`}" align="right">{JSON.stringify(validator.num_expected_blocks)}</TableCell>
                   <TableCell key="{`${validator.num_produced_blocks}${index}`}" align="right">{JSON.stringify(validator.num_produced_blocks)}</TableCell>
                   <TableCell key="{`${validator.num_expected_blocks}${validator.num_produced_blocks}${index}`}" align="right">{(validator.num_produced_blocks / validator.num_expected_blocks * 100).toFixed(2) + "%" }</TableCell>
-                  <TableCell key="" align="right">{!(((validator.num_produced_blocks / validator.num_expected_blocks * 100).toFixed()) > 90) && ( <Tooltip title="Blocks Low" aria-label="Blocks Low"><WarningIcon color="primary" /></Tooltip>)}</TableCell>
+                  <TableCell key="" align="right">
+                    {
+                      ((validator.num_expected_blocks - validator.num_produced_blocks) >= 10) ? (<Tooltip title="Kicked not enough blocks" aria-label="Kicked not enough blocks"><ErrorIcon style={{ color: red[600] }} /></Tooltip> ) 
+                      : (((validator.num_produced_blocks / validator.num_expected_blocks * 100).toFixed()) >= 90)
+                      ? (<Tooltip title="Good Standing" aria-label="Good Standing"><CheckBoxIcon style={{ color: green[600] }} /></Tooltip> ) 
+                      : (<Tooltip title="Blocks Low" aria-label="Blocks Low"><WarningIcon style={{ color: yellow[800] }} /></Tooltip> )
+                    }
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

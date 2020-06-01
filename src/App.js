@@ -7,20 +7,14 @@ import nearlogo from './assets/near_logo_wht.svg';
 import near from './assets/near.svg';
 import * as nearlib from 'near-api-js';
 
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
-
-
-
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 import './App.css';
 import Signup from './Signup.js';
@@ -88,12 +82,10 @@ class App extends Component {
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }
-
     
     //await this.welcome();
     await this.getMessages();
-     this.loadData();
-
+    this.loadData();
 
   }
 
@@ -101,9 +93,13 @@ class App extends Component {
 
     console.log("Loading Data...")
 
+    console.log(this.props.nodeStatus)
+
     this.setState({ isLoading: true });
 
     this.setState({blockHeight: (await (this.props.wallet.account().state())).block_height});
+
+    //console.log((await (this.props.wallet.account().state())))
 
     //console.log( (await this.props.wallet.account().state()).block_height)
 
@@ -131,8 +127,6 @@ class App extends Component {
 
       this.setState({startHeight: data.result.epoch_start_height});
 
-      console.log(data.result.epoch_start_height)
-
       this.setState({validators: data.result, refreshValidators: true, isLoading: false});
 
       this.intervalID = setTimeout(this.loadData.bind(this), 100000);
@@ -146,12 +140,6 @@ class App extends Component {
     this.setState({messages: await this.props.contract.getMessages()});
 
   }
-
-  // async welcome() {
-
-  //   const response = await this.props.contract.welcome({ account_id: accountId });
-
-  // }
 
   async requestSignIn() {
 
@@ -186,13 +174,10 @@ class App extends Component {
 
     self = this;
 
-     const { validators, searchTerm, startHeight, blockHeight,  refreshValidators, error } = this.state;
-
-     console.log(blockHeight)
-     console.log(startHeight)
+    const { validators, searchTerm, startHeight, blockHeight,  refreshValidators, error } = this.state;
 
     let numBlocksProduced = (blockHeight - startHeight);
-    let percentageComplete = numBlocksProduced / 10000000;
+    let percentageComplete = numBlocksProduced / 10000;
 
     let epoch = (Math.floor(percentageComplete * 100));
 
@@ -213,7 +198,7 @@ class App extends Component {
         'font-size': 45,
       },
       validators: {
-        'min-height': 250,
+        'min-height': 150,
         textAlign: 'left',
       },
       paper: {
@@ -245,7 +230,7 @@ class App extends Component {
       },
       table: {
         minWidth: 650,
-      },
+      }
     }));
 
     function CenteredGrid() {
@@ -266,9 +251,9 @@ class App extends Component {
                </Typography>
             </Grid>
             <Grid item className={classes.validators} xs={3}>
-              <Card className={classes.root}>
+              <Card className={classes.root} variant="outlined">
                 <CardContent>
-                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  <Typography className={classes.title} color="primary"  variant="h6" component="h6">
                     % COMPLETE
                   </Typography>
                   <Typography variant="h5" component="h2">
@@ -280,11 +265,11 @@ class App extends Component {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item className={classes.validators} xs={3}>
-              <Card className={classes.root}>
+            <Grid item className={classes.root} xs={3}>
+              <Card className={classes.scoreCard} variant="outlined">
                 <CardContent>
-                  <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    START BLOCK
+                  <Typography className={classes.title} color="primary" variant="h6" component="h6">
+                     START BLOCK
                   </Typography>
                   <Typography variant="h5" component="h2">
                     {startHeight}
@@ -296,10 +281,10 @@ class App extends Component {
               </Card>
             </Grid>
             <Grid item className={classes.validators} xs={3}>
-              <Card className={classes.root}>
+              <Card className={classes.root } variant="outlined">
                 <CardContent>
-                  <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    VALID BLOCKS
+                  <Typography className={classes.title} color="primary"  variant="h6" component="h6">
+                    LAST BLOCK
                   </Typography>
                   <Typography variant="h5" component="h2">
                     {blockHeight}
@@ -324,16 +309,16 @@ class App extends Component {
             </Grid>
 
             <Grid item xs={3}>
-              <Paper className={classes.paper}>xs=3</Paper>
+
             </Grid>
             <Grid item xs={3}>
-              <Paper className={classes.paper}>xs=3</Paper>
+
             </Grid>
             <Grid item xs={3}>
-              <Paper className={classes.paper}>xs=3</Paper>
+
             </Grid>
             <Grid item xs={3}>
-              <Paper className={classes.paper}>xs=3</Paper>
+
             </Grid>
           </Grid>
         </div>
