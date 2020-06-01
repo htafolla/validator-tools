@@ -32,70 +32,22 @@ class Search extends Component {
       validators: '',
       searchTerm: '',
       isLoading: true,
-      // error: null,
-      // epoch: null,
-      // startHeight: null
     }
 
   }
 
   componentDidMount() {
 
-    //this.loadData();
-
-    //this.intervalID = setInterval(() => this.loadData(), 10000);
   }
 
   componentWillUnmount() {
 
-    //clearInterval(this.intervalID);
+
   }
-
-  // async loadData() {
-
-  //   this.setState({ isLoading: true });
-
-  //   this.setState({blockHeight: (await this.props.wallet.account().state()).block_height});
-
-  //   fetch( "https://rpc.betanet.nearprotocol.com", {
-  //     method: 'POST',
-  //     headers: new Headers({
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //     }),
-  //     body: JSON.stringify({
-  //       jsonrpc: '2.0',
-  //       id: 'none',
-  //       method: 'validators',
-  //       params: [null]
-  //     })
-  //   })
-  //   .then(response => {
-  //     if (response.ok) {
-  //       return response.json();
-  //     } else {
-  //       throw new Error('Something went wrong ...');
-  //     }
-  //   })
-  //   .then((data) => {
-
-  //     const validators = data.result.current_validators;
-
-  //     this.setState({startHeight: data.result.epoch_start_height});
-
-  //     this.setState({validators: validators, isLoading: false});
-
-  //     this.intervalID = setTimeout(this.loadData.bind(this), 10000);
-
-  //   })
-  //   .catch(error => this.setState({ error, isLoading: false }));
-  // }
 
   render() {
 
     const self = this
-
-    //const { validators, searchTerm, startHeight, blockHeight,  isLoading, error } = this.state;
 
     const { searchTerm, refreshValidators, isLoading } = self.props;
 
@@ -104,11 +56,6 @@ class Search extends Component {
     }
 
     const validators = self.props.validators.current_validators;
-
-    //console.log(validators)
-
-
-    //let epoch = Math.floor((((blockHeight - startHeight) / 10000) * 100));
 
     const handleChange = () => {
 
@@ -121,14 +68,6 @@ class Search extends Component {
     : validators.filter(validator =>
       validator.account_id.toLowerCase().includes(this.state.searchTerm.toLocaleLowerCase())
       );
-
-    //console.log(results)
-
-    // if (error) {
-    //   return <p>{error.message}</p>;
-    // }
-
-
 
     return (
 

@@ -11,7 +11,7 @@ import theme from './theme';
 async function initContract() {
 
     window.nearConfig = getConfig(process.env.NODE_ENV || 'development')
-    console.log("nearConfig", window.nearConfig);
+    //console.log("nearConfig", window.nearConfig);
 
     // Initializing connection to the NEAR DevNet.
     window.near = await nearlib.connect(Object.assign({ deps: { keyStore: new nearlib.keyStores.BrowserLocalStorageKeyStore() } }, window.nearConfig));

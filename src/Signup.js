@@ -30,13 +30,14 @@ class Signup extends Component {
         jsonrpc: '2.0',
         id: '123',
         method: 'query',
-        params: {request_type: 'view_state', finality: 'final', account_id: 'blazenet', prefix_base64: 'U1RBVEU='}
+        params: {request_type: 'view_state', finality: 'final', account_id: 'blazenet', prefix_base64: ''}
       }) // <-- Post parameters
     })
     .then((response) => response.json())
     .then((responseText) => {
 
-      //console.log(responseText);
+
+      console.log(((atob((responseText.result.values[0].value)).replace(/[^a-z\d\s\u0000\/$]+/g, ""))));
       //console.log(JSON.parse(JSON.stringify(responseText.result.values)));
     })
     .catch((error) => {

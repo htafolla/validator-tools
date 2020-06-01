@@ -77,6 +77,8 @@ class App extends Component {
 
     const accountId = await this.props.wallet.getAccountId()
 
+    //console.log(this.props.wallet)
+
     this.setState({balance: (await this.props.wallet.account().state()).amount});
 
     if (window.location.search.includes("account_id")) {
@@ -128,6 +130,8 @@ class App extends Component {
       this.setState({startHeight: data.result.epoch_start_height});
 
       this.setState({validators: data.result, refreshValidators: true, isLoading: false});
+
+      console.log(data.result)
 
       this.intervalID = setTimeout(this.loadData.bind(this), 100000);
 
@@ -295,7 +299,21 @@ class App extends Component {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item className={classes.validators} xs={3}>&nbsp;</Grid>
+            <Grid item className={classes.validators} xs={3}>
+              <Card className={classes.root } variant="outlined">
+                <CardContent>
+                  <Typography className={classes.title} color="primary"  variant="h6" component="h6">
+                    MY NODE
+                  </Typography>
+                  <Typography variant="h5" component="h2">
+                    Coming Soon...
+                  </Typography>
+                  <Typography color="textSecondary">
+                    HEALTH
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
 
             <Grid item className={classes.validators} xs={8}>
               <Search wallet={self.props.wallet} validators={self.state.validators} classes={classes} isLoading={self.state.isLoading} />
