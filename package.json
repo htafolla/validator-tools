@@ -36,6 +36,7 @@
     "@material-ui/icons": "^4.9.1",
     "@types/react": "^16.8.6",
     "big.js": "^5.2.2",
+    "deepmerge": "^4.2.2",
     "near-api-js": "^0.24.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

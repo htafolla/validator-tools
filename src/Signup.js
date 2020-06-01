@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import { Tooltip } from '@material-ui/core';
+
 
 const SUGGESTED_DONATION = '0'
 const BOATLOAD_OF_GAS = Big(1).times(10 ** 12).toFixed()
@@ -37,7 +39,7 @@ class Signup extends Component {
     .then((responseText) => {
 
 
-      console.log(((atob((responseText.result.values[0].value)).replace(/[^a-z\d\s\u0000\/$]+/g, ""))));
+      //console.log(((atob((responseText.result.values[0].value)).replace(/[^a-z\d\s\u0000\/$]+/g, ""))));
       //console.log(JSON.parse(JSON.stringify(responseText.result.values)));
     })
     .catch((error) => {
@@ -93,8 +95,9 @@ class Signup extends Component {
                <Typography variant="h5" component="h5">
                 Sign Up
                </Typography>
-              <span>Be notified about validator issues</span>
-              <TextField required id="message" label="Required" defaultValue="Email" autoComplete="off" />
+              <span>Valdiator contract stats and monitoring</span>
+              <TextField required id="message" label="Email" autoComplete="off" />
+              <Tooltip title="The deployed contract to monitor" aria-label="The deployed contract to monitor"><TextField required id="message" label="Contract Id" autoComplete="off" /></Tooltip><br/><br/>
               <Button variant="contained" color="primary">Sign Up</Button>
             </fieldset>
           </form>

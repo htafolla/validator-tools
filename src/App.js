@@ -21,6 +21,8 @@ import Signup from './Signup.js';
 import Search from './Search.js';
 import MenuAppBar from './AppBar.js';
 
+//const merge = require('deepmerge')
+
 class App extends Component {
 
   intervalID;
@@ -93,9 +95,9 @@ class App extends Component {
 
   async loadData() {
 
-    console.log("Loading Data...")
+    //console.log("Loading Data...")
 
-    console.log(this.props.nodeStatus)
+    //console.log(this.props.nodeStatus)
 
     this.setState({ isLoading: true });
 
@@ -131,7 +133,44 @@ class App extends Component {
 
       this.setState({validators: data.result, refreshValidators: true, isLoading: false});
 
-      console.log(data.result)
+      //console.log(data.result.next_validators)
+      //console.log(data.result.current_validators)
+
+      let currentValidators = data.result.current_validators;
+        let nextValidators = data.result.next_validators.map((member) => {
+            return {
+                ...member,
+                nextValidator: true
+            }
+        });
+
+        const combineMerge = (target, source, options) => {
+  const destination = target.slice()
+
+  source.forEach((item, index) => {
+    if (typeof destination[index] === 'undefined') {
+      destination[index] = options.cloneUnlessOtherwiseSpecified(item, options)
+    } else if (options.isMergeableObject(item)) {
+      destination[index] = merge(target[index], item, options)
+    } else if (target.indexOf(item) === -1) {
+      destination.push(item)
+    }
+  })
+  return destination
+}
+
+
+      //var thirdMap = merge(nextValidators, currentValidators, { arrayMerge: combineMerge } ) 
+
+      //console.log(nextValidators)
+
+      //var thirdMap = {...nextValidators, ...data.result.current_validators};
+
+      //var thirdMap =  new Map([...nextValidators, ...currentValidators])
+
+      //var thirdMap = Object.assign(nextValidators, currentValidators)
+
+      //console.log(thirdMap)
 
       this.intervalID = setTimeout(this.loadData.bind(this), 100000);
 
@@ -258,13 +297,13 @@ class App extends Component {
               <Card className={classes.root} variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="primary"  variant="h6" component="h6">
-                    % COMPLETE
+                    EPOCH
                   </Typography>
                   <Typography variant="h5" component="h2">
                     {epoch}%
                   </Typography>
                   <Typography color="textSecondary">
-                    EPOCH
+                    COMPLETE
                   </Typography>
                 </CardContent>
               </Card>
@@ -315,12 +354,10 @@ class App extends Component {
               </Card>
             </Grid>
 
-            <Grid item className={classes.validators} xs={8}>
+            <Grid item className={classes.validators} xs={12}>
               <Search wallet={self.props.wallet} validators={self.state.validators} classes={classes} isLoading={self.state.isLoading} />
             </Grid>
-            <Grid item xs={4}>
-                  <Signup wallet={self.props.wallet} contract={self.props.contract} balance={self.state.balance} />
-            </Grid>
+
 
             <Grid item  xs={12}>
 
@@ -343,6 +380,10 @@ class App extends Component {
       );
     }
 
+    if (self.error) {
+      return <p>{self.error.message}</p>;
+    }
+
     return (
       <Container>
         <Box my={4}>
@@ -351,10 +392,6 @@ class App extends Component {
       </Container>
       )
     }
-  }
-
-  if (self.error) {
-    return <p>{self.error.message}</p>;
   }
 
   App.propTypes = {
