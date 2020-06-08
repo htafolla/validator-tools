@@ -32,7 +32,7 @@ export function removeValidator(index: u32): PostedMessage {
 }
 
 /**
- * Returns an array of last N messages.\
+ * Returns an array of last N messages.
  * NOTE: This is a view method. Which means it should NOT modify the state.
  */ 
 export function getMessages(): PostedMessage[] {
