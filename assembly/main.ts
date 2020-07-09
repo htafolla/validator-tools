@@ -15,7 +15,7 @@ const MESSAGE_LIMIT = 10;
  */
 export function addMessage(text: string): void {
   // Creating a new message and populating fields with our data
-  //logging.log("Saving message");
+  logging.log("Saving message");
   const message = new PostedMessage(text);
 
   // Adding the message to end of the the persistent collection
@@ -28,6 +28,9 @@ export function addMessage(text: string): void {
 export function removeValidator(index: u32): PostedMessage {
   const validator = messages.swap_remove(index);
 
+  logging.log(index);
+  logging.log(validator);
+  
   return validator;
 }
 

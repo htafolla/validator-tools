@@ -1,0 +1,198 @@
+Setting up Prometheus
+
+
+sudo apt-get update
+sudo apt-get install prometheus prometheus-node-exporter prometheus-pushgateway prometheus-alertmanager
+
+prometheus --version
+
+sudo systemctl status prometheus 
+sudo systemctl status prometheus-node-exporter
+
+sudo vi /etc/prometheus/prometheus.yml
+targets: ['localhost:9093', 'localhost:3030']
+
+Setup Postfix email
+
+sudo apt-get install mailutils
+internet site
+domain name	
+
+sudo vi /etc/postfix/main.cf
+inet_interfaces = all to inet_interfaces = localhost
+inet_protocols = all to inet_protocols = ipv4
+sudo service postfix restart
+echo "This is the body of the email" | mail -s "This is the subject line" user@example.com
+
+sudo nano /etc/hostname
+sudo nano /etc/hosts
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  - "rules.yml"   
+
+  groups:
+  - name: alert.rules
+  rules:
+  - alert: NearVersionBuildNotMatched
+    expr: near_version_number != near_dev_version_number
+    for: 5m
+
+sudo systemctl restart prometheus
+udo systemctl status prometheus
+
+Setup Granfana
+
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+
+ - job_name: validator
+    # If prometheus-node-exporter is installed, grab stats about the local
+    # validator by default.
+    static_configs:
+      - targets: ['localhost:3030']
+
+Prometheus Specific Alerts
+CPU > 80
+100 - (avg by (instance) (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100)
+
+MEMORY > 80
+100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[10m]) + avg_over_time(node_memory_Cached_bytes[10m]) + avg_over_time(node_memory_Buffers_bytes[10m])) / avg_over_time(node_memory_MemTotal_bytes[10m])))
+
+DISK > 90
+( 1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100
+
+
+(near_epoch_block_produced_number / near_epoch_block_expected_number ) * 100
+
+(near_current_stake / near_seat_price) * 100
+
+
+sudo vi /etc/init.d/prometheus-alertmanager
+NAME=prometheus-alertmanager
+
+
+sudo vi /etc/default/prometheus-alertmanager
+
+# Set the command-line arguments to pass to the server.
+ARGS="--cluster.listen-address="
+
+
+sudo apt-get update
+sudo apt-get install grafana
+sudo systemctl daemon-reload
+
+sudo systemctl enable grafana-server.service
+sudo systemctl start grafana-server
+sudo service grafana-server status
+
+sudo grafana-cli plugins install simpod-json-datasource
+sudo grafana-cli plugins install ryantxu-ajax-panel
+service grafana-server restart
+
+sudo grafana-cli admin reset-admin-password admin
+
+
+Open Ports IP Tables
+
+sudo iptables -L
+sudo iptables -A INPUT -p tcp --dport 3000 -s 66.73.0.194 -j ACCEPT
+sudo netfilter-persistent save
+sudo netfilter-persistent reload
+
+Create Dashboard
+
+Add datasource Prometheus
+Add Notification channel email
+
+Config grafana email
+sudo vi /etc/grafana/grafana.ini
+
+enabled = true
+host = localhost:25
+skip_verify = true
+from_address = moinitor@blazenet.io
+from_name = Henry 
+service grafana-server restart
+
+sudo tail -f /var/log/grafana/grafana.log    
+
+
+sudo apt install golang-go   
+
+git clone https://github.com/masknetgoal634/near-prometheus-exporter.git
+
+cd near-prometheus-exporter/ 
+
+go build -a -installsuffix cgo -ldflags="-w -s" -o main . 
+
+./main -accountId <contract account id>
+
+netstat -an | grep 9333
+
+sudo vi /etc/prometheus/prometheus.yml
+
+  - job_name: near-node
+    scrape_interval: 15s
+    static_configs:
+    - targets: ['<NODE_IP_ADDRESS>:3030']
+
+sudo vi /etc/prometheus/alertmanager.yml
+
+
+postqueue -p
+
+amtool alert
+
+promtool check rules /etc/prometheus/rules.yml
+
+promtool check config /etc/prometheus/prometheus.yml
+
+amtool check-config /etc/prometheus/alertmanager.yml
+
+
+
+
+cd near-prometheus-exporter/
+
+mv main near-exporter
+
+sudo vi /lib/systemd/system/near-exporter.service
+
+
+
+
+[Unit]
+Description=NEAR Prometheus Exporter
+
+[Service]
+Restart=always
+User=prometheus
+EnvironmentFile=/etc/default/near-exporter
+ExecStart=/opt/near-prometheus-exporter/near-exporter $ARGS
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo vi /etc/default/near-exporter
+# Set the command-line arguments to pass to the server.
+# Set you contract name
+ARGS="-accountId blazenet"
+
+sudo cp /lib/systemd/system/near-exporter.service /etc/systemd/system/near-exporter.service
+
+sudo chmod 644 /etc/systemd/system/near-exporter.service
+
+sudo systemctl start near-exporter
+
+sudo systemctl status near-exporter
+
+ps -elf | grep near-exporter 
+
+netstat -an | grep 9333
+
+sudo systemctl enable near-exporter

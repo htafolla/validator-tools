@@ -8,7 +8,7 @@
 <br />
 <br />
 
-## Template for NEAR dapps
+## Validator Toools Dapp
 ### Requirements
 ##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x 
 
@@ -22,7 +22,7 @@ npm i -g near-shell
 ```
 npm i -g yarn
 ```
-### To run on NEAR testnet
+### To run on NEAR betanet
 
 ```bash
 npm install && npm dev

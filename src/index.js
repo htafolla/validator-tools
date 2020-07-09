@@ -12,7 +12,7 @@ import theme from './theme';
 async function initContract() {
 
 
-    window.nearConfig = getConfig(process.env.NODE_ENV || 'betanet')
+    window.nearConfig = getConfig(process.env.NEAR_ENV || 'betanet')
 
     //console.log("nearConfig", window.nearConfig);
 
@@ -32,7 +32,7 @@ async function initContract() {
         // View methods are read only. They don't modify the state, but usually return some value.
         viewMethods: ['welcome', 'getMessages'],
         // Change methods can modify the state. But you don't receive the returned value when called.
-        changeMethods: ['setGreeting', 'addMessage'],
+        changeMethods: ['setGreeting', 'addMessage', 'removeValidator'],
         // Sender is the account ID to initialize transactions.
         sender: window.accountId
     });

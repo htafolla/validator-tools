@@ -5,7 +5,7 @@ import logo from './assets/logo.svg';
 import blazenetlogo from './assets/blazenet-io-icon.png';
 import nearlogo from './assets/near_logo_wht.svg';
 import near from './assets/near.svg';
-import { utils } from 'near-api-js';
+import { utils, validators } from 'near-api-js';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -34,12 +34,17 @@ import Signup from './Signup.js';
 import Search from './Search.js';
 import MenuAppBar from './AppBar.js';
 
+import * as types from './types.ts';
+//import {PublicKey} from '../node_modules/near-api-js/src/utils/key_pair';
+// import {findSeatPrice} from '../node_modules/near-api-js/src/validators';
+// const validators = require('near-api-js/lib/validators')
+
+
 //const merge = require('deepmerge')
 
 class App extends Component {
 
   intervalID;
-
 
   constructor(props) {
     super(props);
@@ -56,6 +61,7 @@ class App extends Component {
       startHeight: null,
       isLoading: true,
       networkState: null,
+      validators: null,
       refreshValidators: false,
       seatPrice: null,
       nextSeatPrice: null,
@@ -96,6 +102,8 @@ class App extends Component {
 
     const accountId = await this.props.wallet.getAccountId()
 
+    //console.log(await (this.props.wallet.account()).state());
+
     this.setState({balance: (await this.props.wallet.account().state()).amount});
 
     if (window.location.search.includes("account_id")) {
@@ -113,7 +121,25 @@ class App extends Component {
     // Get the additional EXPERIMENTAL params to calc seat price
     const genesisConfig = await this.props.near.connection.provider.sendJsonRpc('EXPERIMENTAL_genesis_config', {});
     console.log(genesisConfig);
+    console.log(genesisConfig.genesis_height)
 
+    const contract = await this.props.near.connection.provider.sendJsonRpc('query', {request_type: 'view_state', finality: 'final', account_id: 'freshnears', prefix_base64: ''});
+    //console.log(contract)
+    let contractParsed = contract.values.map((data, i) => {
+      return { 'key': atob(data.key), 'value': atob(data.value) };
+    });
+    //console.log(Base64.decode(contract.values[0].value))
+    console.log(contractParsed)
+    //console.log(atob(contract.values[0].value).replace(/\\u([0-9]|[a-fA-F])([0-9]|[a-fA-F])([0-9]|[a-fA-F])([0-9]|[a-fA-F])/g, ""))
+
+    //console.log(String.fromCharCode.apply(atob(contract.values[0].value)))
+    //.replace(/[^\x20-\x7E]/g, '');
+
+    // let utf8Bytes = atob(contract.values[0].value);
+    // console.log((utf8Bytes))
+
+    let data = types.deserializeData(contract);
+    console.log(data)
     // Get validators
     const result = await this.props.near.connection.provider.sendJsonRpc('validators', [null]);
     result.genesisConfig = genesisConfig;
@@ -124,7 +150,8 @@ class App extends Component {
 
   async loadData() {
 
-    const { findSeatPrice } = require('./validators.ts');
+    //const { findSeatPrice } = require('./validators.ts');
+    //const { validators } = require('near-api-js');
 
     console.log("Loading Data...");
     this.setState({ isLoading: true });
@@ -136,17 +163,19 @@ class App extends Component {
     this.setState({blockHeight: networkState.sync_info.latest_block_height});
 
     // Get the Network State
-    const validators  = await this.getValidators();
-    console.log(validators)
+    const validatorsObj  = await this.getValidators();
+    console.log(validatorsObj)
 
-    let findCurrentSeatPrice = findSeatPrice(validators.current_validators, validators.numSeats);
-    let findNextSeatPrice = findSeatPrice(validators.next_validators, validators.numSeats);
+    let findCurrentSeatPrice = validators.findSeatPrice(validatorsObj.current_validators, validatorsObj.numSeats);
+    let findNextSeatPrice = validators.findSeatPrice(validatorsObj.next_validators, validatorsObj.numSeats);
 
     // Set state
-    this.setState({startHeight: validators.epoch_start_height});
-    this.setState({validators: validators, refreshValidators: true, isLoading: false});
+    this.setState({startHeight: validatorsObj.epoch_start_height});
+    this.setState({validators: validatorsObj, refreshValidators: true, isLoading: false});
     this.setState({seatPrice: utils.format.formatNearAmount(findCurrentSeatPrice.toString(), 0) });
     this.setState({nextSeatPrice: utils.format.formatNearAmount(findNextSeatPrice.toString(), 0)});
+
+    this.intervalID = setTimeout(this.loadData.bind(this), 100000);
 
 
     // fetch( "https://rpc.betanet.nearprotocol.com", {
@@ -182,13 +211,21 @@ class App extends Component {
     //         }
     //   });
 
-    //   this.intervalID = setTimeout(this.loadData.bind(this), 100000);
+    //   
 
     // })
     // .catch(error => this.setState({ error, refreshValidators: false, isLoading: false }));
   }
 
   async getMessages() {
+
+    let validators = await this.props.contract.getMessages();
+    console.log(validators);
+    //let validatorIdx = validators.map(e => e.text).indexOf('test')
+    //console.log(validatorIdx)
+    //let result = await this.props.contract.removeValidator({ index: validatorIdx });
+    //console.log(result);
+    //console.log(await this.props.contract.getMessages())
 
     this.setState({messages: await this.props.contract.getMessages()});
 
@@ -232,12 +269,9 @@ class App extends Component {
 
     let loggedIn  = this.props.wallet.isSignedIn();
 
-
     let numBlocksProduced = (blockHeight - startHeight);
     let percentageComplete = numBlocksProduced / 10000;
-
     let epochPercent = Math.floor(percentageComplete * 100);
-
     let epoch = epochPercent;
 
 
@@ -289,6 +323,18 @@ class App extends Component {
       },
       table: {
         minWidth: 650,
+      },
+      hideTableCell: {
+        [theme.breakpoints.only('xs')]: {
+          display: 'none',
+        },
+        [theme.breakpoints.only('sm')]: {
+          display: 'none',
+        },
+        [theme.breakpoints.only('md')]: {
+          display: 'none',
+        },
+
       }
     }));
 
@@ -300,11 +346,11 @@ class App extends Component {
         <div className={classes.root}>
           <Grid container spacing={5} alignItems="flex-start" alignContent="flex-start">
 
-            <Grid item lg={12}>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
               <MenuAppBar wallet={self.props.wallet} />
             </Grid>
 
-            <Grid item lg={12} className={classes.gridItemCenter}>
+            <Grid item lg={12} md={12} sm={12} xs={12} className={classes.gridItemCenter}>
               <Typography variant="h4" component="h4">
                 NEAR VALIDATOR STATS & TOOLS
                </Typography>               
@@ -312,7 +358,7 @@ class App extends Component {
 
             {(!loggedIn) && 
               <>
-              <Grid item className={classes.gridItemCenter} lg={12}>
+              <Grid item className={classes.gridItemCenter} lg={12}  md={12} sm={12} xs={12}>
               <Typography variant="h6" component="h6">
               Login to use Validator tools<br/>
                 <Button variant="contained" color="secondary" onClick={self.requestSignIn}>Log in</Button>
@@ -323,7 +369,7 @@ class App extends Component {
             }
            {(loggedIn && validators) &&
               <>
-            <Grid item className={classes.validators} lg={3} md={2} sm={1} >
+            <Grid item className={classes.validators} lg={3} md={6} sm={6} xs={6} >
               <Card className={classes.root } variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="primary"  variant="h6" component="h6">
@@ -347,25 +393,25 @@ class App extends Component {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item className={classes.validators} lg={3} md={2} sm={1}>
+            <Grid item className={classes.validators} lg={3} md={6} sm={6} xs={6}>
               <Card className={classes.root} variant="outlined">
                 <CardContent>
-                  <Typography className={classes.title} color="primary"  variant="h6" component="h6">
+                  <Typography className={classes.title} color="primary" variant="h6" component="h6">
                     EPOCH
                   </Typography>
                   <Typography variant="h5" component="h5">
                     &nbsp;{epoch}%
                   </Typography>
                   <Typography color="textSecondary">
-                    Last block: {blockHeight}
+                    Last: {blockHeight}
                   </Typography>
                   <Typography color="textSecondary">
-                   Start block: {startHeight}
+                   Start: {startHeight}
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item className={classes.validators} lg={3} md={2} sm={1}>
+            <Grid item className={classes.validators} lg={3} md={6} sm={6} xs={6}>
               <Card className={classes.scoreCard} variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="primary" variant="h6" component="h6">
@@ -388,7 +434,7 @@ class App extends Component {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item className={classes.validators} lg={3} md={2} sm={1}>
+            <Grid item className={classes.validators} lg={3} md={6} sm={6} xs={6}>
               <Card className={classes.root } variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="primary"  variant="h6" component="h6">
@@ -406,11 +452,10 @@ class App extends Component {
                 </CardContent>
               </Card>
             </Grid>
-
-            <Grid item className={classes.validators} lg={12}>
+            <Grid item className={classes.validators} lg={12} md={12} sm={12} xs={12}>
               <Search wallet={self.props.wallet} validators={self.state.validators} classes={classes} isLoading={self.state.isLoading} />
             </Grid>
-                          </>
+            </>
             }
 
           </Grid>

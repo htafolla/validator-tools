@@ -86,8 +86,8 @@ class Search extends Component {
             <TableHead key="th">
               <TableRow key="tr">
                 <TableCell key="v">Validator</TableCell>
-                <TableCell key="b" align="right">Blocks Expected</TableCell>
-                <TableCell key="p" align="right">Blocks Produced</TableCell>
+                <TableCell className={self.props.classes.hideTableCell} key="b" align="right">Blocks Expected</TableCell>
+                <TableCell className={self.props.classes.hideTableCell} key="p" align="right">Blocks Produced</TableCell>
                 <TableCell key="pc" align="right">%</TableCell>
                 <TableCell key="k" align="right">Status</TableCell>
               </TableRow>
@@ -96,8 +96,8 @@ class Search extends Component {
              {results.map((validator, index) => (
                 <TableRow key={index}>
                   <TableCell key="{`${validator.account_id}${index}`}" >{validator.account_id}</TableCell>
-                  <TableCell key="{`${validator.num_expected_blocks}${index}`}" align="right">{JSON.stringify(validator.num_expected_blocks)}</TableCell>
-                  <TableCell key="{`${validator.num_produced_blocks}${index}`}" align="right">{JSON.stringify(validator.num_produced_blocks)}</TableCell>
+                  <TableCell className={self.props.classes.hideTableCell} key="{`${validator.num_expected_blocks}${index}`}" align="right">{JSON.stringify(validator.num_expected_blocks)}</TableCell>
+                  <TableCell className={self.props.classes.hideTableCell} key="{`${validator.num_produced_blocks}${index}`}" align="right">{JSON.stringify(validator.num_produced_blocks)}</TableCell>
                   <TableCell key="{`${validator.num_expected_blocks}${validator.num_produced_blocks}${index}`}" align="right">{(validator.num_produced_blocks / validator.num_expected_blocks * 100).toFixed(2) + "%" }</TableCell>
                   <TableCell key="" align="right">
                     {

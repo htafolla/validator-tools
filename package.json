@@ -2,6 +2,7 @@
   "name": "validator-tools",
   "version": "0.1.0",
   "scripts": {
+    "compile": "tsc -p ./tsconfig.json",
     "build": "npm run build:contract && npm run build:web",
     "build:contract": "node asconfig.js",
     "build:web": "parcel build src/index.html --public-url ./",
@@ -26,7 +27,7 @@
     "jest": "^26.0.1",
     "jest-environment-node": "^26.0.0",
     "near-sdk-as": "^0.3.1",
-    "near-shell": "^0.22.0",
+    "near-shell": "^0.24.2",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",
     "react-test-renderer": "^16.13.1",
@@ -37,8 +38,10 @@
     "@material-ui/icons": "^4.9.1",
     "@types/react": "^16.8.6",
     "big.js": "^5.2.2",
+    "bn.js": "^5.1.2",
     "deepmerge": "^4.2.2",
-    "near-api-js": "^0.24.0",
+    "install": "^0.13.0",
+    "near-api-js": "^0.26.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "regenerator-runtime": "^0.13.5"
